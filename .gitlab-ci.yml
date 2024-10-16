@@ -31,6 +31,7 @@ test:
     - gradle compile
     - echo "Running your tests"
     - gradle test
+    - gradle coverage
     - echo "Successfully passed your own tests, now running dryrun build"
     - rm -rf app/src/test/
     - tar -xvf /data/assignment-ii-tests.tar -C app/src/
