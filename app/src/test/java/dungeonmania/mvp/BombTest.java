@@ -238,5 +238,24 @@ public class BombTest {
         assertEquals(0, TestUtils.getEntities(res, "treasure").size());
         assertEquals(1, TestUtils.getEntities(res, "player").size());
     }
+    
+    @Test
+    @Tag("8-9")
+    @DisplayName("Test enemies cannot pick up a bomb")
+    public void enemyPickup() {
+        DungeonManiaController dmc;
+        dmc = new DungeonManiaController();
+        DungeonResponse res = dmc.newGame("d_bombTest_enemyPickUp", "c_bombTest_enemyPickUp");
+        assertEquals(1, TestUtils.getEntities(res, "bomb").size());
+        assertEquals(0, TestUtils.getInventory(res, "bomb").size());
+
+        // Tick so mercenary is on bomb tile
+        res = dmc.tick(Direction.UP);
+        assertEquals(new Position(5, 2), TestUtils.getEntityPos(res, "mercenary"));
+        assertEquals(new Position(5, 2), TestUtils.getEntityPos(res, "bomb"));
+
+        assertEquals(1, TestUtils.getEntities(res, "bomb").size());
+        assertEquals(0, TestUtils.getInventory(res, "bomb").size());
+    }
 
 }
