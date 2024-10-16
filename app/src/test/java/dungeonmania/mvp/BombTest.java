@@ -238,7 +238,7 @@ public class BombTest {
         assertEquals(0, TestUtils.getEntities(res, "treasure").size());
         assertEquals(1, TestUtils.getEntities(res, "player").size());
     }
-    
+
     @Test
     @Tag("8-9")
     @DisplayName("Test enemies cannot pick up a bomb")
