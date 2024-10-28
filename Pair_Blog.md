@@ -9,14 +9,25 @@
 > i. Look inside src/main/java/dungeonmania/entities/enemies. Where can you notice an instance of repeated code? Note down the particular offending lines/methods/fields.
 
 [Answer]
+The 'move' methods for the enemies use a switch statement to determine how an enemy moves. The way an enemy moves is the same between a Mercenary and ZombieToast, so it results in unnecessarily duplicated code. For example, both Mercenaries and ZombieToast run away when the Player is invincible. The 2 classes also use the same code for their random movement.
+
+The Default health and Default attack also are repeated for all enemies, but I believe they are used as a static field for EntityFactory, and so they shouldn't be refactored out.
 
 > ii. What Design Pattern could be used to improve the quality of the code and avoid repetition? Justify your choice by relating the scenario to the key characteristics of your chosen Design Pattern.
 
 [Answer]
+The aim of the design pattern should be to remove the duplicate code, and also manage the switch statements, and allow for more decoupling for when new enemies are added. The design pattern chosen should be suited for the scenario where an object needs to change its algorithm for moving at runtime. This narrows it down to either a Strategy or a State pattern. Since the State of the enemy i.e. hostile, player is invisible or invincible...., does not affect how the algorithm is changed, a Strategy pattern is more suitable. The Strategy pattern does this by encapsulating each of the movement algorithms, and can easily make them interchangeable for each Enemy.
 
 > iii. Using your chosen Design Pattern, refactor the code to remove the repetition.
 
 [Briefly explain what you did]
+The code was refactored by introducing a Strategy design pattern. A new folder was created in 'enemies', called 'movement', which is a directory containing an interface called EnemyMovement, and 4 other movement algorithms that implement EnemyMovement. The EnemyMovement class has a single method called getNextEnemyPos.
+
+A EnemyMovement field was added to the Enemy class, with a getter and setter method for it. For each of the enemy subclasses, whenever they are instantiated, the EnemyMovement field is set to the default movement algorithm for that subclass. Originally, whenever a player uses a potion which would change the enemy's behaviour, the code would change a string that was used in the switch statement. Now, it was changed so that a setter method is used to change the movement algorithm instead.
+
+When the move method is called for each enemy subclass, the current movement algorithm is used to calculate the next position the enemy should be in, which is returned, and then moveTo is called within the subclass on the returned position.
+
+While Spider didn't have any duplicate code, a algorithm for Spider movement was also refactored into the Strategy pattern to allow for reuse in the future for other entities that may move in a square shape and is blocked by boulders. This involved moving most of the logic in Spiders, such as the 3 attributes: movementTrajectory, nextPositionElement, forward, and the method updateNextPosition to the SpiderMovement class.
 
 ### b) Pattern Analysis
 
