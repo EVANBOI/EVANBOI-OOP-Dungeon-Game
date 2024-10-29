@@ -7,7 +7,7 @@ import dungeonmania.entities.enemies.Spider;
 import dungeonmania.entities.inventory.Inventory;
 import dungeonmania.util.Position;
 
-public class Door extends Entity {
+public class Door extends Entity implements OverLappable {
     private boolean open = false;
     private int number;
 
@@ -24,7 +24,6 @@ public class Door extends Entity {
         return (entity instanceof Player && hasKey((Player) entity));
     }
 
-    @Override
     public void onOverlap(GameMap map, Entity entity) {
         if (!(entity instanceof Player))
             return;

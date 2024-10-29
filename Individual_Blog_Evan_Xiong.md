@@ -12,7 +12,7 @@
 
 ## Week 8
 
-- List the tasks you completed this week here
+- Finished Task1C
 
 ## Week 9
 

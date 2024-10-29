@@ -23,7 +23,7 @@ import dungeonmania.map.GameMap;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
-public class Player extends Entity implements Battleable {
+public class Player extends Entity implements Battleable, OverLappable {
     public static final double DEFAULT_ATTACK = 5.0;
     public static final double DEFAULT_HEALTH = 5.0;
     private BattleStatistics battleStatistics;
@@ -73,7 +73,6 @@ public class Player extends Entity implements Battleable {
         map.moveTo(this, Position.translateBy(this.getPosition(), direction));
     }
 
-    @Override
     public void onOverlap(GameMap map, Entity entity) {
         if (entity instanceof Enemy) {
             if (entity instanceof Mercenary) {
