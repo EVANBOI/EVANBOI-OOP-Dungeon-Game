@@ -24,7 +24,6 @@ public class Door extends Entity implements OverLappable {
         return (entity instanceof Player && hasKey((Player) entity));
     }
 
-    @Override
     public void onOverlap(GameMap map, Entity entity) {
         if (!(entity instanceof Player))
             return;

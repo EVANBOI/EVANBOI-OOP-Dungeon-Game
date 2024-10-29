@@ -34,7 +34,6 @@ public class Bomb extends InventoryItem implements OverLappable {
         this.subs.add(s);
     }
 
-    @Override
     public void onOverlap(GameMap map, Entity entity) {
         if (state != State.SPAWNED)
             return;

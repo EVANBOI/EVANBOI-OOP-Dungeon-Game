@@ -31,7 +31,6 @@ public class Portal extends Entity implements OverLappable {
         return neighbours.stream().allMatch(n -> map.canMoveTo(entity, n));
     }
 
-    @Override
     public void onOverlap(GameMap map, Entity entity) {
         if (pair == null)
             return;

@@ -14,7 +14,6 @@ public class Key extends InventoryItem implements OverLappable {
         this.number = number;
     }
 
-    @Override
     public void onOverlap(GameMap map, Entity entity) {
         CollectableOnOverlap.handleOverlap(map, entity, this);
     }

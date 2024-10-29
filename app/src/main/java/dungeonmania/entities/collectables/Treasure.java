@@ -11,7 +11,6 @@ public class Treasure extends InventoryItem implements OverLappable {
         super(position);
     }
 
-    @Override
     public void onOverlap(GameMap map, Entity entity) {
         CollectableOnOverlap.handleOverlap(map, entity, this);
     }

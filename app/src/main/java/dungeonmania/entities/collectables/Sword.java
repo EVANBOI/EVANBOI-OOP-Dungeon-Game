@@ -29,7 +29,6 @@ public class Sword extends ConsumableInventoryItem implements Useable, OverLappa
         return true;
     }
 
-    @Override
     public void onOverlap(GameMap map, Entity entity) {
         CollectableOnOverlap.handleOverlap(map, entity, this);
     }

@@ -19,7 +19,6 @@ public class Boulder extends Entity implements OverLappable {
         return false;
     }
 
-    @Override
     public void onOverlap(GameMap map, Entity entity) {
         if (entity instanceof Player) {
             map.moveTo(this, entity.getFacing());

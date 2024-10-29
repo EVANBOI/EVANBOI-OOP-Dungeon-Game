@@ -16,7 +16,6 @@ public abstract class Potion extends ConsumableInventoryItem implements OverLapp
         this.duration = duration;
     }
 
-    @Override
     public void onOverlap(GameMap map, Entity entity) {
         CollectableOnOverlap.handleOverlap(map, entity, this);
     }

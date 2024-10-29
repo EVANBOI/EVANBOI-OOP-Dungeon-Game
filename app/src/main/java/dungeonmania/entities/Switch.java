@@ -35,7 +35,6 @@ public class Switch extends Entity implements OverLappable {
         return true;
     }
 
-    @Override
     public void onOverlap(GameMap map, Entity entity) {
         if (entity instanceof Boulder) {
             activated = true;
