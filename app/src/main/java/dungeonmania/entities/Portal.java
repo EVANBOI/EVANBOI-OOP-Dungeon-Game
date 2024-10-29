@@ -8,7 +8,7 @@ import dungeonmania.entities.enemies.ZombieToast;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
-public class Portal extends Entity {
+public class Portal extends Entity implements OverLappable {
     private ColorCodedType color;
     private Portal pair;
 
@@ -31,7 +31,6 @@ public class Portal extends Entity {
         return neighbours.stream().allMatch(n -> map.canMoveTo(entity, n));
     }
 
-    @Override
     public void onOverlap(GameMap map, Entity entity) {
         if (pair == null)
             return;
@@ -40,12 +39,8 @@ public class Portal extends Entity {
     }
 
     private void doTeleport(GameMap map, Entity entity) {
-        Position destination = pair.getPosition()
-                .getCardinallyAdjacentPositions()
-                .stream()
-                .filter(dest -> map.canMoveTo(entity, dest))
-                .findAny()
-                .orElse(null);
+        Position destination = pair.getPosition().getCardinallyAdjacentPositions().stream()
+                .filter(dest -> map.canMoveTo(entity, dest)).findAny().orElse(null);
         if (destination != null) {
             map.moveTo(entity, destination);
         }
@@ -56,13 +51,11 @@ public class Portal extends Entity {
     }
 
     public List<Position> getDestPositions(GameMap map, Entity entity) {
-        return pair == null
-                ? null
-                : pair.getPosition().getAdjacentPositions()
-                    .stream()
-                    .filter(p -> map.canMoveTo(entity, p))
-                    .collect(Collectors.toList());
+        return pair == null ? null
+                : pair.getPosition().getAdjacentPositions().stream().filter(p -> map.canMoveTo(entity, p))
+                        .collect(Collectors.toList());
     }
+
     public void bind(Portal portal) {
         if (this.pair == portal)
             return;
