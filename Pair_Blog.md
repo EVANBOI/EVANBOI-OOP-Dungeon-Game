@@ -51,9 +51,19 @@ While Spider didn't have any duplicate code, a algorithm for Spider movement was
 
 [Answer]
 
+Based on the previous engineering team’s feedback, we can identify a violation of the Liskov Substitution Principle (LSP). An LSP violation occurs when attributes or methods in a superclass don’t logically apply to all subclasses, making them incompatible with each other. In this case, it doesn’t make sense for Wood and Treasure classes to inherit attributes like durability or methods for applying buffs. Additionally, upon further inspection with Alex we discovered that the abstract method for onOverlap is present in Buildables, a subclass of InventoryItem. This violates LSP as items that are crafted like shields and swords are not on the map to overlap on. 
+
+This further looks true if we look at the battleFacade class as by doing so we can see that swords, shields, potions and bows are the only items that are able to apply buffs on the player.
+
 > ii. Refactor the inheritance structure of the code, and in the process remove the design principle violation you identified.
 
 [Briefly explain what you did]
+
+When trying to remove the LSP violation, I considered creating a new subclass of InventoryItem named ConsumableInventoryItem. The
+class contains behaviour regarding durability and applying buffs. By treating certain collectable items as subclasses of InventoryItem and ConsumableInventoryItem, I am able to remove the LSP violation. 
+
+As I established before, upon further discussion with Alex, I realised that the abstract method onOverlap violates LSP, as it doesn't make sense for buildable items to have onOverlap behaviour. To fix this, we at first considered delegation but decided against it as it is important that shield and bow are subclasses of InventoryItem. Due to this, we decided to implement a OverLappable interface. Overall with this, we are able to remove the LSP violation present in the collectables folder. 
+
 
 ### d) More Code Smells
 

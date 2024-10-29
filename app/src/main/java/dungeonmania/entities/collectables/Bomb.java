@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import dungeonmania.battles.BattleStatistics;
 import dungeonmania.entities.Entity;
+import dungeonmania.entities.OverLappable;
 import dungeonmania.entities.Player;
 import dungeonmania.entities.Switch;
 import dungeonmania.entities.inventory.InventoryItem;
 import dungeonmania.map.GameMap;
 
-public class Bomb extends InventoryItem {
+public class Bomb extends InventoryItem implements OverLappable {
     public enum State {
         SPAWNED, INVENTORY, PLACED
     }
@@ -66,15 +66,5 @@ public class Bomb extends InventoryItem {
 
     public State getState() {
         return state;
-    }
-
-    @Override
-    public BattleStatistics applyBuff(BattleStatistics origin) {
-        return BattleStatistics.applyBuff(origin, new BattleStatistics(0, 0, 0, 1, 1, false, false));
-    }
-
-    @Override
-    public int getDurability() {
-        return Integer.MAX_VALUE;
     }
 }
