@@ -7,13 +7,11 @@ import java.util.stream.Collectors;
 import dungeonmania.Game;
 import dungeonmania.entities.Entity;
 import dungeonmania.entities.Player;
-import dungeonmania.entities.buildables.*;
-import dungeonmania.entities.collectables.Sword;
 import dungeonmania.entities.collectables.Useable;
 import dungeonmania.entities.collectables.potions.Potion;
 import dungeonmania.entities.enemies.Enemy;
 import dungeonmania.entities.enemies.Mercenary;
-import dungeonmania.entities.inventory.InventoryItem;
+import dungeonmania.entities.inventory.ConsumableInventoryItem;
 import dungeonmania.response.models.BattleResponse;
 import dungeonmania.response.models.ResponseBuilder;
 import dungeonmania.util.NameConverter;
@@ -29,19 +27,17 @@ public class BattleFacade {
 
         // 1. apply buff provided by the game and player's inventory
         // getting buffing amount
-        List<InventoryItem> battleItems = new ArrayList<>();
+        List<ConsumableInventoryItem> battleItems = new ArrayList<>();
         BattleStatistics playerBuff = new BattleStatistics(0, 0, 0, 1, 1);
 
         Potion effectivePotion = player.getEffectivePotion();
         if (effectivePotion != null) {
             playerBuff = player.applyBuff(playerBuff);
         } else {
-            for (InventoryItem item : player.getInventory().getEntities(InventoryItem.class)) {
-                if (item instanceof Bow || item instanceof Shield || item instanceof Sword) {
-                    playerBuff = item.applyBuff(playerBuff);
-                    battleItems.add(item);
-                    ((Useable) item).use(game);
-                }
+            for (ConsumableInventoryItem item : player.getInventory().getEntities(ConsumableInventoryItem.class)) {
+                playerBuff = item.applyBuff(playerBuff);
+                battleItems.add(item);
+                ((Useable) item).use(game);
             }
         }
 
