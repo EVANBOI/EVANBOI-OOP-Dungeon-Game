@@ -34,6 +34,7 @@ While Spider didn't have any duplicate code, a algorithm for Spider movement was
 [Links to your merge requests](/put/links/here)
 
 > i. Identify one place where the State Pattern is present in the codebase. Do you think this is an appropriate use of the State Pattern?
+The State Pattern was used for transitioning between Player states, including their base state, invisible state and invincible state. Although the classes represent states, it was still an inappropriate use of the pattern. This is because the State pattern should be used when an algorithm changes behaviour depending on its State. This was not the case for the implementation, as the the code for each of the States was the same, resulting in a lot of unnecessarily duplicated code. The current implementation also violates open-closed principle, where any additional PlayerState would require the adding of a new boolean attribute to the PlayerState class.
 
 [Answer]
 
@@ -42,6 +43,7 @@ While Spider didn't have any duplicate code, a algorithm for Spider movement was
 > (Option 2) If you answered that it was not an appropriate use of the State Pattern, refactor the code to improve the implementation. You may choose to improve the usage of the pattern, switch to a different design pattern, or remove the pattern entirely.
 
 [Answer or brief explanation of your code]
+I refactored the code by improving the usage of the pattern. I removed all of the duplicate transition methods,and moved it to the PlayerState class to remove the duplicate code. I also removed the boolean isInvisible and isInvincible attributes from playerState, and instead made the methods in each type of State to either return true or false. To make use of the State pattern, I moved the applyBuff method from the Player class and is instead implemented in each of the states. Originally, the code would cycle through all of the states and check for the corresponding one, and then apply the buff. Now, the code uses the State pattern to choose the correct type of buff to apply.
 
 ### c) Inheritance Design
 

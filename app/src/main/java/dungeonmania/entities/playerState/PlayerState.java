@@ -1,33 +1,36 @@
 package dungeonmania.entities.playerState;
 
+import dungeonmania.battles.BattleStatistics;
 import dungeonmania.entities.Player;
 
 public abstract class PlayerState {
     private Player player;
-    private boolean isInvincible = false;
-    private boolean isInvisible = false;
 
-    PlayerState(Player player, boolean isInvincible, boolean isInvisible) {
+    PlayerState(Player player) {
         this.player = player;
-        this.isInvincible = isInvincible;
-        this.isInvisible = isInvisible;
     }
 
     public boolean isInvincible() {
-        return isInvincible;
-    };
-
-    public boolean isInvisible() {
-        return isInvisible;
-    };
-
-    public Player getPlayer() {
-        return player;
+        return false;
     }
 
-    public abstract void transitionInvisible();
+    public boolean isInvisible() {
+        return false;
+    }
 
-    public abstract void transitionInvincible();
+    public BattleStatistics applyBuff(BattleStatistics origin) {
+        return origin;
+    }
 
-    public abstract void transitionBase();
+    public void transitionInvisible() {
+        player.changeState(new InvisibleState(player));
+    }
+
+    public void transitionInvincible() {
+        player.changeState(new InvincibleState(player));
+    }
+
+    public void transitionBase() {
+        player.changeState(new BaseState(player));
+    }
 }
