@@ -8,9 +8,6 @@ public abstract class ConsumableInventoryItem extends InventoryItem {
         super(position);
     }
 
-    // @Override
-    // public abstract void onOverlap(GameMap map, Entity entity);
-
     public abstract BattleStatistics applyBuff(BattleStatistics origin);
 
     public abstract int getDurability();
