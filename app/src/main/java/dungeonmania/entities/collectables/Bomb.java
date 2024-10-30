@@ -54,7 +54,7 @@ public class Bomb extends InventoryItem implements OverLappable {
         translate(Position.calculatePositionBetween(getPosition(), p));
         map.addEntity(this);
         this.state = State.PLACED;
-        List<Position> adjPosList = getPosition().getCardinallyAdjacentPositions();
+        List<Position> adjPosList = getCardinallyAdjacentPositions();
         adjPosList.stream().forEach(node -> {
             List<Entity> entities = map.getEntities(node).stream().filter(e -> (e instanceof Switch))
                     .collect(Collectors.toList());

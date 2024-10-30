@@ -27,7 +27,7 @@ public class Portal extends Entity implements OverLappable {
     }
 
     public boolean canTeleportTo(GameMap map, Entity entity) {
-        List<Position> neighbours = getPosition().getCardinallyAdjacentPositions();
+        List<Position> neighbours = getCardinallyAdjacentPositions();
         return neighbours.stream().allMatch(n -> map.canMoveTo(entity, n));
     }
 
@@ -39,7 +39,7 @@ public class Portal extends Entity implements OverLappable {
     }
 
     private void doTeleport(GameMap map, Entity entity) {
-        Position destination = pair.getPosition().getCardinallyAdjacentPositions().stream()
+        Position destination = pair.getCardinallyAdjacentPositions().stream()
                 .filter(dest -> map.canMoveTo(entity, dest)).findAny().orElse(null);
         if (destination != null) {
             map.moveTo(entity, destination);
@@ -52,7 +52,7 @@ public class Portal extends Entity implements OverLappable {
 
     public List<Position> getDestPositions(GameMap map, Entity entity) {
         return pair == null ? null
-                : pair.getPosition().getAdjacentPositions().stream().filter(p -> map.canMoveTo(entity, p))
+                : pair.getCardinallyAdjacentPositions().stream().filter(p -> map.canMoveTo(entity, p))
                         .collect(Collectors.toList());
     }
 
