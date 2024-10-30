@@ -66,4 +66,14 @@ public class Bomb extends InventoryItem implements OverLappable {
     public State getState() {
         return state;
     }
+
+    public void bombDetonation(GameMap map) {
+        int x = this.getPositionX();
+        int y = this.getPositionY();
+        for (int i = x - this.getRadius(); i <= x + this.getRadius(); i++) {
+            for (int j = y - this.getRadius(); j <= y + this.getRadius(); j++) {
+                map.destroyEntitiesOnPosition(i, j);
+            }
+        }
+    }
 }

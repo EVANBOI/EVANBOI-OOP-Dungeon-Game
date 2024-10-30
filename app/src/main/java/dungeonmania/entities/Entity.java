@@ -54,6 +54,14 @@ public abstract class Entity {
         return position;
     }
 
+    public int getPositionX() {
+        return position.getX();
+    }
+
+    public int getPositionY() {
+        return position.getY();
+    }
+
     public Position getPreviousPosition() {
         return previousPosition;
     }
