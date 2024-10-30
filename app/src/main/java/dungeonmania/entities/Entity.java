@@ -4,6 +4,7 @@ import dungeonmania.map.GameMap;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
+import java.util.List;
 import java.util.UUID;
 
 public abstract class Entity {
@@ -52,6 +53,18 @@ public abstract class Entity {
 
     public Position getPosition() {
         return position;
+    }
+
+    public int getPositionX() {
+        return position.getX();
+    }
+
+    public int getPositionY() {
+        return position.getY();
+    }
+
+    public List<Position> getCardinallyAdjacentPositions() {
+        return position.getCardinallyAdjacentPositions();
     }
 
     public Position getPreviousPosition() {

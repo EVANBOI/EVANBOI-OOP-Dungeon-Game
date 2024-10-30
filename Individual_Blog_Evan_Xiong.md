@@ -13,6 +13,8 @@
 ## Week 8
 
 - Finished Task1C
+- Finsihed Task1C
+- Fixed LoD in one area
 
 ## Week 9
 

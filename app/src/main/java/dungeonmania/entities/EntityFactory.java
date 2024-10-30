@@ -66,7 +66,7 @@ public class EntityFactory {
         int spawnInterval = config.optInt("zombie_spawn_interval", ZombieToastSpawner.DEFAULT_SPAWN_INTERVAL);
         if (spawnInterval == 0 || (tick + 1) % spawnInterval != 0)
             return;
-        List<Position> pos = spawner.getPosition().getCardinallyAdjacentPositions();
+        List<Position> pos = spawner.getCardinallyAdjacentPositions();
         pos = pos.stream().filter(p -> !map.getEntities(p).stream().anyMatch(e -> (e instanceof Wall)))
                 .collect(Collectors.toList());
         if (pos.size() == 0)

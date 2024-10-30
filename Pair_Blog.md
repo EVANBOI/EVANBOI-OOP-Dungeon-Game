@@ -74,8 +74,12 @@ I realised that the abstract method onOverlap violates LSP, as it doesn't make s
 > i. What code smell is present in the above snippet?
 
 [Answer]
+The code smell present in the snippet is feature envy. This is because the method is providing logic regarding bomb detonation. This behaviour should not be in the switch class, as it is a violation of single responsibility principle.Additionally, after
+discussing with Alex, another code smell, inappropriate intimacy is present. This is because the when obtaining the X and Y coordinates of the bomb, there is a violation of Law of Demeter. 
 
 > ii. Refactor the code to resolve the smell and underlying problem causing it.
+
+To resolve the smell, I move the bomb detonation logic to the bomb class. Additionally, added two new methods that return the X and Y coordinates of an entity in the entity class. 
 
 [Briefly explain what you did]
 
