@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import dungeonmania.Game;
 import dungeonmania.entities.Entity;
+import dungeonmania.entities.MovedAwayBehaviour;
 import dungeonmania.entities.OverLappable;
 import dungeonmania.entities.Player;
 import dungeonmania.entities.Portal;
@@ -117,8 +118,8 @@ public class GameMap {
     private void triggerMovingAwayEvent(Entity entity) {
         List<Runnable> callbacks = new ArrayList<>();
         getEntities(entity.getPosition()).forEach(e -> {
-            if (e != entity)
-                callbacks.add(() -> e.onMovedAway(this, entity));
+            if (e != entity && e instanceof MovedAwayBehaviour)
+                callbacks.add(() -> ((MovedAwayBehaviour) e).onMovedAway(this, entity));
         });
         callbacks.forEach(callback -> {
             callback.run();

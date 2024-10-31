@@ -34,8 +34,4 @@ public class ZombieToastSpawner extends Entity implements Interactable {
         return Position.isAdjacent(player.getPosition(), getPosition()) && player.hasWeapon();
     }
 
-    @Override
-    public void onMovedAway(GameMap map, Entity entity) {
-        return;
-    }
 }

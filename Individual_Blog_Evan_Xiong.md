@@ -15,6 +15,8 @@
 - Finished Task1C
 - Finsihed Task1C
 - Fixed LoD in one area
+- Task1F 
+    - Refactored the onMovedAway method
 
 ## Week 9
 
