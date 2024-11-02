@@ -120,23 +120,35 @@ Add all other changes you made in the same format here:
 
 **Assumptions**
 
-[Any assumptions made]
+- the number of enemies defeated only include those defeated in battle (no bombs)
 
 **Design**
 
-[Design]
+- Extending on the Composite pattern from Task 1, we can introduce a new class called EnemyGoal that is a subclass of GoalWithTarget
+- We also add a new case "enemies" to the GoalFactory
+- The EnemyGoal class overrides the achievedIfPlayer method and checks if the number of defeated enemies is sufficient for the target, and if the map has no more spawners
+- To count the number of defeated enemies, we add a attribute called defeatedEnemyCount to the Player class 
+    - this value is incremented whenever a battle leads to an enemy being killed
+        - this would entail a incrementEnemiesDefeated method in Player, which is referenced in battle method of Game
+- To check if the map has no more spawners, we can use the getEntities method that returns a list of entities of a specific class
+    - ZombieToastSpawner.class should have a count of 0
+- override the toStringIfUnachieved method to return ":enemies"
+
 
 **Changes after review**
 
-[Design review/Changes made]
+Partner review:
+This looks immaculate!
+
+No changes made.
 
 **Test list**
 
-[Test List]
+- wrote function stubs in JUnit tests
 
 **Other notes**
 
-[Any other notes]
+During the implementation and testing of this task, I found that there was a mistake in the MVP where ZombieToastSpawners weren't properly destroyed when a player interacted with it. This was fixed during this task as well by adding a line in ZombieToastSpawner that destroys the entity when it is interacted with. 
 
 ### Choice 1 (Insert choice)
 
