@@ -107,6 +107,8 @@ Most classes don't require the onMoved method. To fix this, we decided to make a
 [Merge Request 2](/put/links/here)
 
 [Briefly explain what you did]
+To remove the SRP violations present in the inventory class, I moved the buildables logic into the buildables class.
+
 
 Add all other changes you made in the same format here:
 

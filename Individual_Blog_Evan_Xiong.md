@@ -17,6 +17,7 @@
 - Fixed LoD in one area
 - Task1F 
     - Refactored the onMovedAway method
+    - Abstracted the buildable logic in the inventory class
 
 ## Week 9
 
