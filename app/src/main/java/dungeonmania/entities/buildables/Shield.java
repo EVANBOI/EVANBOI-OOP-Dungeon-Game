@@ -67,4 +67,9 @@ public class Shield extends Buildable implements Useable {
         return null;
     }
 
+    @Override
+    public String toString() {
+        return "shield";
+    }
+
 }

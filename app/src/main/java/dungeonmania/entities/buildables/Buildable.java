@@ -13,4 +13,6 @@ public abstract class Buildable extends ConsumableInventoryItem {
     public abstract Buildable buildItem(Inventory inventory, boolean remove, EntityFactory factory);
 
     public abstract boolean isBuildable(Inventory inventory);
+
+    public abstract String toString();
 }

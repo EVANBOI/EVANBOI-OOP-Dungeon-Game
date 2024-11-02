@@ -58,4 +58,10 @@ public class Bow extends Buildable implements Useable {
         }
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "bow";
+    }
+
 }
