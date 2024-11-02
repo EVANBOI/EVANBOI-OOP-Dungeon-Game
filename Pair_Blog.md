@@ -134,11 +134,14 @@ Add all other changes you made in the same format here:
 
 **Changes after review**
 
-[Design review/Changes made]
+Partner review:
+This looks immaculate!
+
+No changes made.
 
 **Test list**
 
-[Test List]
+- wrote function stubs in JUnit tests
 
 **Other notes**
 
