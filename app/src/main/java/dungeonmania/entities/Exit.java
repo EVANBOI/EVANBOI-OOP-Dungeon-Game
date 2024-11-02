@@ -14,11 +14,6 @@ public class Exit extends Entity {
     }
 
     @Override
-    public void onMovedAway(GameMap map, Entity entity) {
-        return;
-    }
-
-    @Override
     public void onDestroy(GameMap gameMap) {
         return;
     }

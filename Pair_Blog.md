@@ -102,6 +102,7 @@ I think the design is very insufficient. A design pattern that could be used to 
 [Merge Request 1](/put/links/here)
 
 [Briefly explain what you did]
+Most classes don't require the onMoved method. To fix this, we decided to make an onMovedAway interface that fixes this.
 
 [Merge Request 2](/put/links/here)
 
