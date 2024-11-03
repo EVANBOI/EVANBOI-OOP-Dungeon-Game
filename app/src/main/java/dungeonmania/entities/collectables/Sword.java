@@ -3,12 +3,12 @@ package dungeonmania.entities.collectables;
 import dungeonmania.Game;
 import dungeonmania.battles.BattleStatistics;
 import dungeonmania.entities.Entity;
-import dungeonmania.entities.OverLappable;
+import dungeonmania.entities.OverlapBehaviour;
 import dungeonmania.entities.inventory.ConsumableInventoryItem;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
-public class Sword extends ConsumableInventoryItem implements Useable, OverLappable {
+public class Sword extends ConsumableInventoryItem implements Useable, OverlapBehaviour {
     public static final double DEFAULT_ATTACK = 1;
     public static final double DEFAULT_ATTACK_SCALE_FACTOR = 1;
     public static final int DEFAULT_DURABILITY = 5;

@@ -4,14 +4,14 @@ import dungeonmania.Game;
 import dungeonmania.battles.BattleStatistics;
 import dungeonmania.battles.Battleable;
 import dungeonmania.entities.Entity;
-import dungeonmania.entities.OverLappable;
+import dungeonmania.entities.OverlapBehaviour;
 import dungeonmania.entities.Player;
 import dungeonmania.entities.PotionListener;
 import dungeonmania.entities.enemies.movement.EnemyMovement;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
-public abstract class Enemy extends Entity implements Battleable, OverLappable {
+public abstract class Enemy extends Entity implements Battleable, OverlapBehaviour {
     private BattleStatistics battleStatistics;
     private EnemyMovement movement;
 
