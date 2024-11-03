@@ -34,6 +34,7 @@ public class Player extends Entity implements Battleable, OverlapBehaviour {
     private Set<PotionListener> potionListeners = new HashSet<>();
 
     private int collectedTreasureCount = 0;
+    private int defeatedEnemiesCount = 0;
 
     private PlayerState state;
 
@@ -47,6 +48,14 @@ public class Player extends Entity implements Battleable, OverlapBehaviour {
 
     public int getCollectedTreasureCount() {
         return collectedTreasureCount;
+    }
+
+    public int getDefeatedEnemiesCount() {
+        return defeatedEnemiesCount;
+    }
+
+    public void incrementDefeatedEnemiesCount() {
+        defeatedEnemiesCount++;
     }
 
     public boolean hasWeapon() {

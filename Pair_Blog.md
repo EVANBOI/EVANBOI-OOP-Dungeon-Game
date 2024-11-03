@@ -143,7 +143,7 @@ No changes made.
 
 **Other notes**
 
-[Any other notes]
+During the implementation and testing of this task, I found that there was a mistake in the MVP where ZombieToastSpawners weren't properly destroyed when a player interacted with it. This was fixed during this task as well by adding a line in ZombieToastSpawner that destroys the entity when it is interacted with. 
 
 ### Choice 1 (Insert choice)
 

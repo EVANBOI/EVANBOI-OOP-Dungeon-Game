@@ -12,7 +12,7 @@
 
 ## Week 8
 
-- Completed Task1A, Completed Task1E, Completed Task1B
+- Completed Task1A, Completed Task1E, Completed Task1B, Completed Task 2A
 
 ## Week 9
 
