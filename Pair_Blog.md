@@ -145,25 +145,82 @@ No changes made.
 
 During the implementation and testing of this task, I found that there was a mistake in the MVP where ZombieToastSpawners weren't properly destroyed when a player interacted with it. This was fixed during this task as well by adding a line in ZombieToastSpawner that destroys the entity when it is interacted with. 
 
-### Choice 1 (Insert choice)
+### Choice 1 (F - Logic Switches)
 
 [Links to your merge requests](/put/links/here)
 
 **Assumptions**
 
-[Any assumptions made]
+From the ed forum,
+- destruction of switches and wires is undefined
+- 
+
 
 **Design**
 
-[Design]
+- Specification breakdown:
+    - Need to create 5 types of logical rules (one of them is the bombs original one)
+        - Or
+        - And
+        - Xor
+        - Co_and
+        - OnlySwitch (for the original bomb)
+
+        - This can be implemented using a strategy pattern, where each logical entity will be initialised with the declared logical rule
+        - Create a abstract class: Logic
+            - 1 method:
+                - checkIfFulfilled
+            - will have the above 5 subclasses
+
+    - To check if there is power at each of the logic entities, we can use a observer pattern:
+        - have an interface called CurrentSubject for the entities that can conduct i.e. wires and switches (subject)
+            - methods:
+                - attach();
+                - detach();
+                - notify:
+        - have an interface for CurrentObserver for logical entities and also wires (observer)
+            - methods:
+                - update();
+
+        - wires observe cardinally adjacent wires and switches
+        - logical entities observe cardinally adjacent wires and switches
+
+        - have an attribute numCardinallyAdjacentConductors and numActiveCardinallyAdjacentConductors (these values are updated when an observer notifies them)
+        - numCardinallyAdjacentConductors is equal to the number of observers the entity has
+        - numActiveCardinallyAdjacentConductors is updated when any of the entities it subscribes to become active
+        - we can use these attributes for the logical rules
+            - Or:
+                - return true if numActiveCardinallyAdjacentConductors >= 1
+            - And:
+                - return true if numActiveCardinallyAdjacentConductors = numCardinallyAdjacentConductors and numCardinallyAdjacentConductors >= 2
+            - Xor:
+                - return true if numActiveCardinallyAdjacentConductors = 1
+            - Co_and:
+                - Have an attribute called numActiveCardinallyAdjacentConductorsLastTick
+                - Have an boolean attribute storing if the logic was already satisfied last tick
+                - update the boolean as true and return true if numActiveCardinallyAdjacentConductors = numCardinallyAdjacentConductors and numActiveCardinallyAdjacentConductorsLastTick = 0
+            - OnlySwitch:
+                - return true when the switch is activated (use original code for Switch and Bomb)
+
+        - To ensure that the observer pattern doesn't create an infinite loop: i.e, a wire 1 notifies its adjacent wire 2 and then wire 2 notifies wire 1 and so on repeatedly
+            - when a conductor notifies another entity, it also provides an id
+            - the other entity only notifies entities that do not have the same id
+
+    - Can create a method called like initialiseConductorObservers which would initialise all the observer relations in the GameBuilder class
+
+    - Need to create 3 more subclasses of Entity: LightBulb, SwitchDoor, Wire, which will all be in the entities folder, and also edit the bomb class
+        - these changes will be done by adding new string cases in EntityFactory
+        - to add these entities to the frontend, we look at NameConverter where it converts the class name into a string
+            - for light_bulb, we should have a method that returns a string indicating whether it is on or off
+
 
 **Changes after review**
 
-[Design review/Changes made]
+Looks good!
 
 **Test list**
 
-[Test List]
+- wrote function stubs in JUnit tests
 
 **Other notes**
 
