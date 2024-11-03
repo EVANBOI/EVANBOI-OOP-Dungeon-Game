@@ -52,9 +52,4 @@ public class Door extends Entity implements OverlapBehaviour {
     public void open() {
         open = true;
     }
-
-    @Override
-    public void onDestroy(GameMap gameMap) {
-        return;
-    }
 }

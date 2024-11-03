@@ -16,10 +16,4 @@ public abstract class InventoryItem extends Entity {
     public boolean canMoveOnto(GameMap map, Entity entity) {
         return true;
     }
-
-    @Override
-    public void onDestroy(GameMap gameMap) {
-        return;
-    }
-
 }

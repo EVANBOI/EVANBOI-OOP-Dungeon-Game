@@ -169,11 +169,6 @@ public class Player extends Entity implements Battleable, OverlapBehaviour {
         return state.applyBuff(origin);
     }
 
-    @Override
-    public void onDestroy(GameMap gameMap) {
-        return;
-    }
-
     public void registerPotionListener(PotionListener e) {
         potionListeners.add(e);
 
