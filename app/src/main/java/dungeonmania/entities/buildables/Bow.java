@@ -35,8 +35,7 @@ public class Bow extends Buildable implements Useable {
         return durability;
     }
 
-    @Override
-    public boolean isBuildable(Inventory inventory) {
+    public static boolean isBuildable(Inventory inventory) {
         int numOfWood = inventory.count(Wood.class);
         int numOfArrows = inventory.count(Arrow.class);
         return numOfWood >= 1 && numOfArrows >= 3;
@@ -59,8 +58,7 @@ public class Bow extends Buildable implements Useable {
         return null;
     }
 
-    @Override
-    public String toString() {
+    public static String stringValue() {
         return "bow";
     }
 

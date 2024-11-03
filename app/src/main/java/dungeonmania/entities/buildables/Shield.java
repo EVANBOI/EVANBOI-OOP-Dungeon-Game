@@ -38,15 +38,13 @@ public class Shield extends Buildable implements Useable {
         return durability;
     }
 
-    @Override
-    public boolean isBuildable(Inventory inventory) {
+    public static boolean isBuildable(Inventory inventory) {
         int numOfWood = inventory.count(Wood.class);
         int numOfTreasure = inventory.count(Treasure.class);
         int numOfKeys = inventory.count(Key.class);
         return numOfWood >= 2 && (numOfTreasure >= 1 || numOfKeys >= 1);
     }
 
-    @Override
     public Buildable buildItem(Inventory inventory, boolean remove, EntityFactory factory) {
         List<Wood> wood = inventory.getEntities(Wood.class);
         List<Treasure> treasure = inventory.getEntities(Treasure.class);
@@ -67,8 +65,7 @@ public class Shield extends Buildable implements Useable {
         return null;
     }
 
-    @Override
-    public String toString() {
+    public static String stringValue() {
         return "shield";
     }
 

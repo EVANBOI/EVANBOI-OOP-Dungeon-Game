@@ -2,9 +2,12 @@ package dungeonmania.entities;
 
 import dungeonmania.Game;
 import dungeonmania.entities.buildables.Bow;
+import dungeonmania.entities.buildables.Buildable;
 import dungeonmania.entities.buildables.Shield;
 import dungeonmania.entities.collectables.*;
 import dungeonmania.entities.enemies.*;
+import dungeonmania.entities.inventory.Inventory;
+import dungeonmania.entities.inventory.InventoryItem;
 import dungeonmania.map.GameMap;
 import dungeonmania.entities.collectables.potions.InvincibilityPotion;
 import dungeonmania.entities.collectables.potions.InvisibilityPotion;
@@ -175,5 +178,45 @@ public class EntityFactory {
             throw new IllegalArgumentException(
                     String.format("Failed to recognise '%s' entity in EntityFactory", jsonEntity.getString("type")));
         }
+    }
+
+    public Buildable constructBuildables(String item) {
+        if (item.equals("bow")) {
+            return buildBow();
+        } else if (item.equals("shield")) {
+            return buildShield();
+        }
+
+        return null;
+    }
+
+    public static boolean canBuild(String itemName, Inventory inventory) {
+        if (itemName.equals("bow")) {
+            return Bow.isBuildable(inventory);
+        } else if (itemName.equals("shield")) {
+            return Shield.isBuildable(inventory);
+        }
+        return false;
+    }
+
+    public static List<String> getBuildableItems(Inventory inventory) {
+        List<String> result = new ArrayList<>();
+
+        if (Bow.isBuildable(inventory)) {
+            result.add(Bow.stringValue());
+        }
+        if (Shield.isBuildable(inventory)) {
+            result.add(Shield.stringValue());
+        }
+
+        return result;
+    }
+
+    public InventoryItem buildItem(String itemName, Inventory inventory, boolean remove) {
+        if (canBuild(itemName, inventory)) {
+            Buildable buildable = this.constructBuildables(itemName);
+            return buildable != null ? buildable.buildItem(inventory, remove, this) : null;
+        }
+        return null;
     }
 }

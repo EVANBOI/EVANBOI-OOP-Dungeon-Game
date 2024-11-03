@@ -8,11 +8,8 @@ import dungeonmania.entities.Entity;
 import dungeonmania.entities.EntityFactory;
 import dungeonmania.entities.Player;
 import dungeonmania.entities.buildables.Bow;
-import dungeonmania.entities.buildables.Buildable;
-import dungeonmania.entities.buildables.Shield;
 import dungeonmania.entities.collectables.Sword;
 import dungeonmania.entities.collectables.Useable;
-import java.util.Arrays;
 
 public class Inventory {
     private List<InventoryItem> items = new ArrayList<>();
@@ -27,28 +24,11 @@ public class Inventory {
     }
 
     public List<String> getBuildables() {
-
-        List<String> result = new ArrayList<>();
-        List<Buildable> possibleItems = Arrays.asList(new Bow(0), new Shield(0, 0));
-
-        for (Buildable buildable : possibleItems) {
-            if (buildable.isBuildable(this)) {
-                result.add(buildable.toString());
-            }
-        }
-        return result;
+        return EntityFactory.getBuildableItems(this);
     }
 
     public InventoryItem checkBuildCriteria(Player p, boolean remove, String item, EntityFactory factory) {
-
-        List<Buildable> possibleItems = Arrays.asList(new Bow(0), new Shield(0, 0));
-
-        for (Buildable buildable : possibleItems) {
-            if (buildable.toString().equals(item)) {
-                return buildable.buildItem(this, remove, factory);
-            }
-        }
-        return null;
+        return factory.buildItem(item, this, remove);
     }
 
     public <T extends InventoryItem> T getFirst(Class<T> itemType) {
