@@ -64,7 +64,7 @@ This further looks true if we look at the battleFacade class as by doing so we c
 When trying to remove the LSP violation, I considered creating a new subclass of InventoryItem named ConsumableInventoryItem. The
 class contains behaviour regarding durability and applying buffs. By treating certain collectable items as subclasses of InventoryItem and ConsumableInventoryItem, I am able to remove the LSP violation. 
 
-I realised that the abstract method onOverlap violates LSP, as it doesn't make sense for buildable items to have onOverlap behaviour. To fix this, we at first considered delegation but decided against it as it is important that shield and bow are subclasses of InventoryItem. Due to this, we decided to implement a OverLappable interface. Overall with this, we are able to remove the LSP violation present in the collectables folder. 
+I realised that the abstract method onOverlap violates LSP, as it doesn't make sense for buildable items to have onOverlap behaviour. To fix this, we at first considered delegation but decided against it as it is important that shield and bow are subclasses of InventoryItem. Due to this, we decided to implement a OverlapBehaviour interface. Overall with this, we are able to remove the LSP violation present in the collectables folder. 
 
 
 ### d) More Code Smells
@@ -102,7 +102,7 @@ I think the design is very insufficient. A design pattern that could be used to 
 [Merge Request 1](/put/links/here)
 
 [Briefly explain what you did]
-Most classes don't require the onMoved method. To fix this, we decided to make an onMovedAway interface that fixes this.
+Most classes don't require the onMoved method which violates LSP. To fix this, we decided to make an onMovedAway interface which is implemented by the entities where onMoved has special behaviour.
 
 [Merge Request 2](/put/links/here)
 
