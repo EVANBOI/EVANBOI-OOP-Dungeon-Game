@@ -58,9 +58,4 @@ public class Switch extends Entity implements OverlapBehaviour, MovedAwayBehavio
     public boolean isActivated() {
         return activated;
     }
-
-    @Override
-    public void onDestroy(GameMap gameMap) {
-        return;
-    }
 }

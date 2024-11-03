@@ -15,6 +15,7 @@ import dungeonmania.entities.Player;
 import dungeonmania.entities.Portal;
 import dungeonmania.entities.PotionListener;
 import dungeonmania.entities.Switch;
+import dungeonmania.entities.OnDestroyBehaviour;
 import dungeonmania.entities.collectables.Bomb;
 import dungeonmania.entities.enemies.Enemy;
 import dungeonmania.entities.enemies.ZombieToastSpawner;
@@ -219,7 +220,9 @@ public class GameMap {
 
     public void destroyEntity(Entity entity) {
         removeNode(entity);
-        entity.onDestroy(this);
+        if (entity instanceof OnDestroyBehaviour) {
+            ((OnDestroyBehaviour) entity).onDestroy(this);
+        }
     }
 
     public void addEntity(Entity entity) {
