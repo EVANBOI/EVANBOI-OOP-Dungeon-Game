@@ -155,15 +155,13 @@ During the implementation and testing of this task, I found that there was a mis
 **Assumptions**
 
 From the ed forum,
-- destruction of switches and wires wont be tested
+- destruction of switches and wires is undefined
+- 
 
 
 **Design**
 
 - Specification breakdown:
-    - Need to create 3 more subclasses of Entity: LightBulb, SwitchDoor, Wire, which will all be in the entities folder, and also edit the bomb class
-        - these changes will be done by adding new string cases in EntityFactory
-        - the lightbulb 
     - Need to create 5 types of logical rules (one of them is the bombs original one)
         - Or
         - And
@@ -171,14 +169,32 @@ From the ed forum,
         - Co_and
         - Switch (for the original bomb)
 
-        - This can be implemented using a strategy pattern, where each entity will be initialised with the declared logical rule
+        - This can be implemented using a strategy pattern, where each logical entity will be initialised with the declared logical rule
+        - Create a abstract class: Logic
+            - 1 method:
+                - checkIfFulfilled
+            - will have the above 5 subclasses
 
     - To check if there is power at each of the logic entities, we can use a observer pattern:
         - wires observe switch
         - logical entities observe wires and switches
-        
-        - we can use these attributes for the logical rules, where we can keep track of the number of entities a logical entity is observing, and the number of updates it has received to calcualte the number of currents it is or could be receiving
+
+        - have an attribute numCardinallyAdjacentConductors and numActiveCardinallyAdjacentConductors (these values are updated when an observer notifies them)
+        - numCardinallyAdjacentConductors is equal to the number of observers the entity has
+        - numActiveCardinallyAdjacentConductors is updated when any of the entities it subscribes to become active
+        - we can use these attributes for the logical rules
+            - Or:
+                - return true if numActiveCardinallyAdjacentConductors >= 1
+            - And:
+                - return true if numActiveCardinallyAdjacentConductors = numCardinallyAdjacentConductors
     - Can create a method called like initialiseConductorObservers which would initialise all the observer relations in the GameBuilder class
+
+    - Create an interface called 
+    - Need to create 3 more subclasses of Entity: LightBulb, SwitchDoor, Wire, which will all be in the entities folder, and also edit the bomb class
+        - these changes will be done by adding new string cases in EntityFactory
+        - LightBulb will implement the interfaces 
+
+
 
 
 **Changes after review**
