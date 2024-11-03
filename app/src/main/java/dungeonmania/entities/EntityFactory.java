@@ -215,7 +215,7 @@ public class EntityFactory {
     public InventoryItem buildItem(String itemName, Inventory inventory, boolean remove) {
         if (canBuild(itemName, inventory)) {
             Buildable buildable = this.constructBuildables(itemName);
-            return buildable != null ? buildable.buildItem(inventory, remove, this) : null;
+            return buildable.buildItem(inventory, remove, this);
         }
         return null;
     }
