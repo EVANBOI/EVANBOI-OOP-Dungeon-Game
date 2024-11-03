@@ -67,9 +67,4 @@ public class Portal extends Entity implements OverlapBehaviour {
             portal.bind(this);
         }
     }
-
-    @Override
-    public void onDestroy(GameMap gameMap) {
-        return;
-    }
 }

@@ -101,14 +101,11 @@ I think the design is very insufficient. A design pattern that could be used to 
 
 [Merge Request 1](/put/links/here)
 
-[Briefly explain what you did]
 Most classes don't require the onMoved method which violates LSP. To fix this, we decided to make an onMovedAway interface which is implemented by the entities where onMoved has special behaviour.
 
 [Merge Request 2](/put/links/here)
 
-[Briefly explain what you did]
-
-Add all other changes you made in the same format here:
+Entities has a onDestroy method that is implemented by its subclasses. However, enemies is the only subclass that uses this methods, while the other overriden methods are empty. This violates LSP. To fix this, we implement a onDestroyBehaviour interface that is only implemented by enemies and zombieToastSpawner for now. (It will also be used for logical entities in Task2F). The GameMap class destroyEntity method is also updated so that it checks if the entity is a instance of the interface before calling onDestroy.
 
 ## Task 2) Evolution of Requirements 👽
 

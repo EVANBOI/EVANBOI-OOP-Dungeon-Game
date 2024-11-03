@@ -33,9 +33,4 @@ public class Boulder extends Entity implements OverlapBehaviour {
         }
         return true;
     }
-
-    @Override
-    public void onDestroy(GameMap gameMap) {
-        return;
-    }
 }
