@@ -148,17 +148,38 @@ No changes made.
 
 During the implementation and testing of this task, I found that there was a mistake in the MVP where ZombieToastSpawners weren't properly destroyed when a player interacted with it. This was fixed during this task as well by adding a line in ZombieToastSpawner that destroys the entity when it is interacted with. 
 
-### Choice 1 (Insert choice)
+### Choice 1 (F - Logic Switches)
 
 [Links to your merge requests](/put/links/here)
 
 **Assumptions**
 
-[Any assumptions made]
+From the ed forum,
+- destruction of switches and wires wont be tested
+
 
 **Design**
 
-[Design]
+- Specification breakdown:
+    - Need to create 3 more subclasses of Entity: LightBulb, SwitchDoor, Wire, which will all be in the entities folder, and also edit the bomb class
+        - these changes will be done by adding new string cases in EntityFactory
+        - the lightbulb 
+    - Need to create 5 types of logical rules (one of them is the bombs original one)
+        - Or
+        - And
+        - Xor
+        - Co_and
+        - Switch (for the original bomb)
+
+        - This can be implemented using a strategy pattern, where each entity will be initialised with the declared logical rule
+
+    - To check if there is power at each of the logic entities, we can use a observer pattern:
+        - wires observe switch
+        - logical entities observe wires and switches
+        
+        - we can use these attributes for the logical rules, where we can keep track of the number of entities a logical entity is observing, and the number of updates it has received to calcualte the number of currents it is or could be receiving
+    - Can create a method called like initialiseConductorObservers which would initialise all the observer relations in the GameBuilder class
+
 
 **Changes after review**
 
