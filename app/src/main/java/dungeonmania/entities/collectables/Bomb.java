@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import dungeonmania.entities.Entity;
-import dungeonmania.entities.OverLappable;
+import dungeonmania.entities.OverlapBehaviour;
 import dungeonmania.entities.Player;
 import dungeonmania.entities.Switch;
 import dungeonmania.entities.inventory.InventoryItem;
 import dungeonmania.map.GameMap;
 
-public class Bomb extends InventoryItem implements OverLappable {
+public class Bomb extends InventoryItem implements OverlapBehaviour {
     public enum State {
         SPAWNED, INVENTORY, PLACED
     }

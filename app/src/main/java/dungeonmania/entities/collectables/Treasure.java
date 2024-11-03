@@ -1,12 +1,12 @@
 package dungeonmania.entities.collectables;
 
 import dungeonmania.entities.Entity;
-import dungeonmania.entities.OverLappable;
+import dungeonmania.entities.OverlapBehaviour;
 import dungeonmania.entities.inventory.InventoryItem;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
-public class Treasure extends InventoryItem implements OverLappable {
+public class Treasure extends InventoryItem implements OverlapBehaviour {
     public Treasure(Position position) {
         super(position);
     }

@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import dungeonmania.Game;
 import dungeonmania.entities.Entity;
 import dungeonmania.entities.MovedAwayBehaviour;
-import dungeonmania.entities.OverLappable;
+import dungeonmania.entities.OverlapBehaviour;
 import dungeonmania.entities.Player;
 import dungeonmania.entities.Portal;
 import dungeonmania.entities.PotionListener;
@@ -129,8 +129,8 @@ public class GameMap {
     private void triggerOverlapEvent(Entity entity) {
         List<Runnable> overlapCallbacks = new ArrayList<>();
         getEntities(entity.getPosition()).forEach(e -> {
-            if (e instanceof OverLappable) {
-                OverLappable overlappable = (OverLappable) e;
+            if (e instanceof OverlapBehaviour) {
+                OverlapBehaviour overlappable = (OverlapBehaviour) e;
                 overlapCallbacks.add(() -> overlappable.onOverlap(this, entity));
             }
         });
