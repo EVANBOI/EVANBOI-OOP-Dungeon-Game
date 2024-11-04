@@ -152,8 +152,9 @@ During the implementation and testing of this task, I found that there was a mis
 **Assumptions**
 
 From the ed forum,
-- destruction of switches and wires is undefined
-- 
+- destruction of switches and wires is undefined (so dont need to worry about it)
+- assume switch_door has the same properties as a door when open and closed
+- wires can be moved on
 
 
 **Design**
@@ -172,6 +173,19 @@ From the ed forum,
                 - checkIfFulfilled
             - will have the above 5 subclasses
 
+        (Post implementation hindsight edit):
+            - this ended up being a bit more complicated and had to add methods:
+                - for when bombs attach and detach or when a circuit is destroyed
+                    - (This is undefined but it was a nice challenge)
+                    - updateAdjacentConductorsAttachment
+                    - updateAdjacentConductorsDetachment
+                - and also:
+                    - updateNumActivated
+                    - incrementNumActivated
+                    - incrmeentTotalValidAdjacentConductors
+                    - getNumActivated
+                    - getTotalValidAdjacentConductors
+
     - To check if there is power at each of the logic entities, we can use a observer pattern:
         - have an interface called CurrentSubject for the entities that can conduct i.e. wires and switches (subject)
             - methods:
@@ -181,6 +195,9 @@ From the ed forum,
         - have an interface for CurrentObserver for logical entities and also wires (observer)
             - methods:
                 - update();
+
+        (Post implementation hindsight edit):
+            - a lot of the methods between different logical entities and conductors ended up being the same, so that subjects is now a subclass of Entity and observer is still an interface (due to Bomb being an InventoryItem subclass which will be a pain to refactor)
 
         - wires observe cardinally adjacent wires and switches
         - logical entities observe cardinally adjacent wires and switches
@@ -199,9 +216,12 @@ From the ed forum,
                 - Have an attribute called numActiveCardinallyAdjacentConductorsLastTick
                 - Have an boolean attribute storing if the logic was already satisfied last tick
                 - update the boolean as true and return true if numActiveCardinallyAdjacentConductors = numCardinallyAdjacentConductors and numActiveCardinallyAdjacentConductorsLastTick = 0
-            - OnlySwitch:
-                - return true when the switch is activated (use original code for Switch and Bomb)
 
+                (Post implementation hindsight edit):
+                    - This was the biggest problem during my implementation as i realised that the check had to be applied after all the conductors were updated during each tick as otherwise the last tick would be updated by 1 increment, making the logic never return true
+
+            - OnlySwitch:
+                - return true when the switch is activated (use the same logic as Or() but only attach to switches)
         - To ensure that the observer pattern doesn't create an infinite loop: i.e, a wire 1 notifies its adjacent wire 2 and then wire 2 notifies wire 1 and so on repeatedly
             - when a conductor notifies another entity, it also provides an id
             - the other entity only notifies entities that do not have the same id
@@ -211,8 +231,7 @@ From the ed forum,
     - Need to create 3 more subclasses of Entity: LightBulb, SwitchDoor, Wire, which will all be in the entities folder, and also edit the bomb class
         - these changes will be done by adding new string cases in EntityFactory
         - to add these entities to the frontend, we look at NameConverter where it converts the class name into a string
-            - for light_bulb, we should have a method that returns a string indicating whether it is on or off
-
+            - for light_bulb, we should have a method that returns a boolean indicating whether it is on or off
 
 **Changes after review**
 

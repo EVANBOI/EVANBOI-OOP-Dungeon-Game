@@ -1,24 +1,31 @@
 package dungeonmania.entities.logicals;
 
+import dungeonmania.entities.Entity;
 import dungeonmania.entities.logicals.logics.Logic;
-import dungeonmania.entities.logicals.logics.Or;
+import dungeonmania.entities.logicals.logics.LogicFactory;
 import dungeonmania.util.Position;
 
-public class Wire extends CurrentSubject implements CurrentObserver {
-    private Logic logic = new Or();
+public class UncollectableLogicEntity extends Entity implements CurrentObserver {
+    private Logic logic;
+    private boolean activated = false;
 
-    public Wire(Position position) {
+    public UncollectableLogicEntity(Position position, String logic) {
         super(position);
+        this.logic = LogicFactory.getLogic(logic);
     }
 
     @Override
     public void updateCurrent(CurrentSubject subject, boolean current) {
         logic.updateNumActivated(subject, current);
-        boolean currentLastTick = isActivated();
-        updateConditionStatus();
-        if (isActivated() != currentLastTick) {
-            notifyCardinallyAdjacentExcept(subject.getId(), isActivated());
-        }
+    }
+
+    @Override
+    public void updateConditionStatus() {
+        activated = logic.checkIfFulfilled();
+    }
+
+    public boolean isActivated() {
+        return activated;
     }
 
     @Override
@@ -29,10 +36,5 @@ public class Wire extends CurrentSubject implements CurrentObserver {
     @Override
     public void detachFromSubject(CurrentSubject subject, boolean current) {
         logic.updateAdjacentConductorsDetachment(subject, current);
-    }
-
-    @Override
-    public void updateConditionStatus() {
-        setActivated(logic.checkIfFulfilled());
     }
 }
