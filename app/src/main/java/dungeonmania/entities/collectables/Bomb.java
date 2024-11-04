@@ -12,11 +12,12 @@ import dungeonmania.entities.Player;
 import dungeonmania.entities.inventory.InventoryItem;
 import dungeonmania.entities.logicals.CurrentObserver;
 import dungeonmania.entities.logicals.CurrentSubject;
+import dungeonmania.entities.logicals.Logical;
 import dungeonmania.entities.logicals.logics.Logic;
 import dungeonmania.entities.logicals.logics.LogicFactory;
 import dungeonmania.map.GameMap;
 
-public class Bomb extends InventoryItem implements OverlapBehaviour, CurrentObserver {
+public class Bomb extends InventoryItem implements OverlapBehaviour, CurrentObserver, Logical {
     public enum State {
         SPAWNED, INVENTORY, PLACED
     }
