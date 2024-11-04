@@ -7,7 +7,5 @@ public interface CurrentObserver {
 
     public void detachFromSubject(CurrentSubject subject, boolean current);
 
-    public void updateConditionStatus();
-
     public String getId();
 }
