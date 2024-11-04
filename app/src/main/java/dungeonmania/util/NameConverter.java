@@ -20,7 +20,7 @@ public class NameConverter {
             return nameBasic + open;
         }
         if (entity instanceof LightBulb) {
-            String activated = ((LightBulb) entity).isOn() ? "_on" : "_off";
+            String activated = ((LightBulb) entity).isActivated() ? "_on" : "_off";
             return nameBasic + activated;
         }
         return nameBasic;
