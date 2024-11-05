@@ -349,3 +349,9 @@ removed ZombieToast from possible entities that can teleport and updated Test 7-
 Found a mistake with mercenary bribing, where they could be bribed without being in the correct radius. This conclusion was came to by looking at the canBeBribed function which did not have any seemingly relevant checks and then also confirmed by looking at the relevant test in MercenaryTest.
 
 Fixed by adding a private inRange function which checks when the player is in range to the Mercenary class, and then calling it in canBeBribed
+
+[Merge Request 3](/put/links/here)
+
+Found a mistake with keys where players could pick up more than one. Fixed by implemented a check in onOverlap in Key class where it checks if the number of keys in ivnentory is 0. This error was found by looking through the code and confirmed by reading the relevant test.
+
+The test in DoorsKeysTest was also updated to match the spec
