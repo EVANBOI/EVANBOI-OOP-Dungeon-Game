@@ -261,7 +261,7 @@ Looks good!
 the item, in which one gets consumed.
 - The durability of the spectre is 1
 - Only one sceptre can be used one at a time
-- When the mind control duration is over --> mercenary movements become random
+- When the mind control duration is over --> mercenary movements becomes toPlayerMovement
 - Midnight Armor does not count as a weapon
 
 **Design**

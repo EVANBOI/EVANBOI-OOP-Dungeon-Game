@@ -12,13 +12,17 @@
         },
         {
             "x": 1,
-            "y": 4,
-            "key": 1,
-            "type": "door"
+            "y": 3,
+            "type": "treasure"
         },
         {
             "x": 1,
-            "y": 6,
+            "y": 12,
+            "type": "mercenary"
+        },
+        {
+            "x": 5,
+            "y": 5,
             "type": "exit"
         }
     ],
