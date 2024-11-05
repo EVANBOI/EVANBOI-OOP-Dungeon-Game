@@ -18,12 +18,13 @@
 // import dungeonmania.util.Direction;
 
 // public class SceptreTest {
-//     @Test
-//     @DisplayName("Test sceptre on mercenary and sceptre duration and durability")
-//     public void sceptreOnMercenary() {
-//         DungeonManiaController dmc = new DungeonManiaController();
-//         DungeonResponse response = dmc.newGame("d_sceptreTest_sceptreOnMercenary", "c_sceptreTest_sceptreOnMercenary");
-//         String mercenaryId = TestUtils.getEntitiesStream(response, "mercenary").findFirst().get().getId();
+// @Test
+// @DisplayName("Test sceptre on mercenary and sceptre duration and durability")
+// public void sceptreOnMercenary() {
+// DungeonManiaController dmc = new DungeonManiaController();
+// DungeonResponse response = dmc.newGame("d_sceptreTest_sceptreOnMercenary", "c_sceptreTest_sceptreOnMercenary");
+// String mercenaryId = TestUtils.getEntitiesStream(response,
+// "mercenary").findFirst().get().getId();
 
 //         // Check that you cannot bribe
 //         assertThrows(InvalidActionException.class, () -> dmc.interact(mercenaryId));
