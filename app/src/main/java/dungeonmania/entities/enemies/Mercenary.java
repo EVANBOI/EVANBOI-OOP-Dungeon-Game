@@ -51,13 +51,30 @@ public class Mercenary extends Enemy implements Interactable, PotionListener {
         super.onOverlap(map, entity);
     }
 
+    private boolean inRange(Player player) {
+        int playerX = player.getPositionX();
+        int playerY = player.getPositionY();
+        int x = getPositionX();
+        int y = getPositionY();
+
+        for (int i = x - bribeRadius; i <= x + bribeRadius; i++) {
+            for (int j = y - bribeRadius; j <= y + bribeRadius; j++) {
+                if (i == playerX & j == playerY) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     /**
      * check whether the current merc can be bribed
      * @param player
      * @return
      */
     private boolean canBeBribed(Player player) {
-        return bribeRadius >= 0 && player.countEntityOfType(Treasure.class) >= bribeAmount;
+        return inRange(player) && player.countEntityOfType(Treasure.class) >= bribeAmount;
     }
 
     /**
