@@ -12,8 +12,8 @@
 
 ## Week 8
 
-- Completed Task1A, Completed Task1E, Completed Task1B, Completed Task 2A
+- Completed Task1A, Completed Task1E, Completed Task1B, Completed Task 2A, fixed onDestroy LSP issues
 
 ## Week 9
 
-- List the tasks you completed this week here
+- Completed Task2F

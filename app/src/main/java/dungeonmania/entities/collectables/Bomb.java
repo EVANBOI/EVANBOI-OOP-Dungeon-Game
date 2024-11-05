@@ -9,11 +9,14 @@ import java.util.stream.Collectors;
 import dungeonmania.entities.Entity;
 import dungeonmania.entities.OverlapBehaviour;
 import dungeonmania.entities.Player;
-import dungeonmania.entities.Switch;
 import dungeonmania.entities.inventory.InventoryItem;
+import dungeonmania.entities.logicals.CurrentObserver;
+import dungeonmania.entities.logicals.CurrentSubject;
+import dungeonmania.entities.logicals.logics.Logic;
+import dungeonmania.entities.logicals.logics.LogicFactory;
 import dungeonmania.map.GameMap;
 
-public class Bomb extends InventoryItem implements OverlapBehaviour {
+public class Bomb extends InventoryItem implements OverlapBehaviour, CurrentObserver {
     public enum State {
         SPAWNED, INVENTORY, PLACED
     }
@@ -21,26 +24,25 @@ public class Bomb extends InventoryItem implements OverlapBehaviour {
     public static final int DEFAULT_RADIUS = 1;
     private State state;
     private int radius;
+    private boolean explode = false;
+    private Logic logic;
 
-    private List<Switch> subs = new ArrayList<>();
+    private List<CurrentSubject> observing = new ArrayList<>();
 
-    public Bomb(Position position, int radius) {
+    public Bomb(Position position, int radius, String logic) {
         super(position);
         state = State.SPAWNED;
         this.radius = radius;
-    }
-
-    public void subscribe(Switch s) {
-        this.subs.add(s);
+        this.logic = LogicFactory.getLogic(logic);
     }
 
     public void onOverlap(GameMap map, Entity entity) {
         if (state != State.SPAWNED)
             return;
         if (entity instanceof Player) {
+            observing.stream().forEach(s -> s.detach(this));
             if (!((Player) entity).pickUp(this))
                 return;
-            subs.stream().forEach(s -> s.unsubscribe(this));
             map.destroyEntity(this);
         }
         this.state = State.INVENTORY;
@@ -56,10 +58,9 @@ public class Bomb extends InventoryItem implements OverlapBehaviour {
         this.state = State.PLACED;
         List<Position> adjPosList = getCardinallyAdjacentPositions();
         adjPosList.stream().forEach(node -> {
-            List<Entity> entities = map.getEntities(node).stream().filter(e -> (e instanceof Switch))
+            List<Entity> entities = map.getEntities(node).stream().filter(e -> (e instanceof CurrentSubject))
                     .collect(Collectors.toList());
-            entities.stream().map(Switch.class::cast).forEach(s -> s.subscribe(this, map));
-            entities.stream().map(Switch.class::cast).forEach(s -> this.subscribe(s));
+            entities.stream().map(CurrentSubject.class::cast).forEach(s -> s.attach(this, map));
         });
     }
 
@@ -75,5 +76,28 @@ public class Bomb extends InventoryItem implements OverlapBehaviour {
                 map.destroyEntitiesOnPosition(i, j);
             }
         }
+    }
+
+    public void updateCurrent(CurrentSubject subject, boolean current) {
+        logic.updateNumActivated(subject, current);
+    }
+
+    public void updateConditionStatus() {
+        explode = logic.checkIfFulfilled();
+    }
+
+    public boolean willExplode() {
+        return explode;
+    }
+
+    @Override
+    public void attachToSubject(CurrentSubject subject, boolean current) {
+        logic.updateAdjacentConductorsAttachment(subject, current);
+        observing.add(subject);
+    }
+
+    @Override
+    public void detachFromSubject(CurrentSubject subject, boolean current) {
+        logic.updateAdjacentConductorsDetachment(subject, current);
     }
 }

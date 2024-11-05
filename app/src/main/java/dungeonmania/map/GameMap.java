@@ -14,11 +14,11 @@ import dungeonmania.entities.OverlapBehaviour;
 import dungeonmania.entities.Player;
 import dungeonmania.entities.Portal;
 import dungeonmania.entities.PotionListener;
-import dungeonmania.entities.Switch;
 import dungeonmania.entities.OnDestroyBehaviour;
-import dungeonmania.entities.collectables.Bomb;
 import dungeonmania.entities.enemies.Enemy;
 import dungeonmania.entities.enemies.ZombieToastSpawner;
+import dungeonmania.entities.logicals.CurrentObserver;
+import dungeonmania.entities.logicals.CurrentSubject;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
@@ -39,18 +39,23 @@ public class GameMap {
         initPairPortals();
         initRegisterMovables();
         initRegisterSpawners();
-        initRegisterBombsAndSwitches();
+        initRegisterLogicConnections();
         initPotionListeners();
     }
 
-    private void initRegisterBombsAndSwitches() {
-        List<Bomb> bombs = getEntities(Bomb.class);
-        List<Switch> switchs = getEntities(Switch.class);
-        for (Bomb b : bombs) {
-            for (Switch s : switchs) {
-                if (Position.isAdjacent(b.getPosition(), s.getPosition())) {
-                    b.subscribe(s);
-                    s.subscribe(b);
+    private void initRegisterLogicConnections() {
+        GameMap map = game.getMap();
+        List<CurrentSubject> conductors = getConductors();
+
+        for (CurrentSubject subject : conductors) {
+            List<Position> positions = subject.getCardinallyAdjacentPositions();
+            for (Position p : positions) {
+                List<Entity> entities = getEntities(p);
+                for (Entity e : entities) {
+                    if (e instanceof CurrentObserver) {
+                        CurrentObserver observer = (CurrentObserver) e;
+                        subject.attach(observer, map);
+                    }
                 }
             }
         }
@@ -267,6 +272,12 @@ public class GameMap {
 
     public <T extends Entity> List<T> getEntities(Class<T> type) {
         return getEntities().stream().filter(type::isInstance).map(type::cast).collect(Collectors.toList());
+    }
+
+    private List<CurrentSubject> getConductors() {
+        List<CurrentSubject> conductors = getEntities().stream().filter(e -> e instanceof CurrentSubject)
+                .map(e -> (CurrentSubject) e).collect(Collectors.toList());
+        return conductors;
     }
 
     public Player getPlayer() {
