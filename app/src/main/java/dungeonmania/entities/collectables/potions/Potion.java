@@ -12,7 +12,7 @@ public abstract class Potion extends UseableBuffItem implements OverlapBehaviour
     private int duration;
 
     public Potion(Position position, int duration) {
-        super(position);
+        super(position, 1);
         this.duration = duration;
     }
 

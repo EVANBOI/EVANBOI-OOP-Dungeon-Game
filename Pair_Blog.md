@@ -109,6 +109,10 @@ Entities has a onDestroy method that is implemented by its subclasses. However, 
 
 [Merge Request 3](/put/links/here)
 
+Changed the buildables class into an interface, as it is possible to have a buildable item that lasts forever and doesn't have a durability. It is also possible to have a buildable item that doesn't apply a buff. In addition to this, the buildables class didn't have sort of concrete methods so it might as well been an interface.
+
+To reduce the repetition present in shield/bow/sword, I refactored the getDurability code and use code into the UseableBuffItem.java class. I also realised I can change the buffItem class into an interface.
+
 ## Task 2) Evolution of Requirements 👽
 
 ### a) Microevolution - Enemy Goal
