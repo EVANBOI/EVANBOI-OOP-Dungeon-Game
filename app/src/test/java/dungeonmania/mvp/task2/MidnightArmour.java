@@ -10,7 +10,7 @@ public class MidnightArmour {
     };
 
     @Test
-    @DisplayName("Test midnight armour being built sucessfully")
+    @DisplayName("Test midnight armour being built successfully")
     public void buildMidnightArmour() {
     };
 
