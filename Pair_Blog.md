@@ -257,15 +257,12 @@ Looks good!
 
 **Assumptions**
 
-<<<<<<< HEAD
 - For creating a sceptre if the player doesn't possess enough treasure/keys, you would require two sun stones to build
 the item, in which one gets consumed.
 - The durability of the spectre is 1
 - Only one sceptre can be used one at a time
 - When the mind control duration is over --> mercenary movements become random
 - Midnight Armor does not count as a weapon
-=======
->>>>>>> main
 
 **Design**
 
@@ -277,6 +274,7 @@ the item, in which one gets consumed.
         - can be used to open any door
             - change onOverlap logic in the door class
         - can be used interchangeably with treasures or keys when building entities
+        - if
             - change the builditem logic in bow/shield class
         - can't be used to bribe mercenaries or assassins
         - considered as treasure
@@ -294,12 +292,17 @@ the item, in which one gets consumed.
 
 - Classes to consider:
     - Sun Stone --> subclass of inventory item
-    - Sceptre --> subclass of buildable
-    - Midnight Armor --> subclass of buildable
+    - Sceptre --> subclass of UseableBuff item
+    - Midnight Armor --> subclass of inventory item
 
 **Changes after review**
 
 [Design review/Changes made]
+- observer pattern to implement the mind control logic 
+    - use(Scepter scepter, GameMap map)
+    - triggerNextScepter(int currentTick)
+- use the interact method in the mercenary class to interact with the mercenary
+    - interact(Player player, Game game)
 
 **Test list**
 

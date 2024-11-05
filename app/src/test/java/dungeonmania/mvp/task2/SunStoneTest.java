@@ -15,6 +15,11 @@ public class SunStoneTest {
     };
 
     @Test
+    @DisplayName("Test that keys/treasure are used to build shield")
+    public void testSunStoneCraftingPriority() {
+    };
+
+    @Test
     @DisplayName("Test sun stone cannot bribe mercenary")
     public void testSunStoneBribeMercenary() {
     };

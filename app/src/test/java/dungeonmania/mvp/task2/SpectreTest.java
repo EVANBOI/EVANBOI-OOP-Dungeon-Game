@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 public class SpectreTest {
     @Test
-    @DisplayName("Test spectre on mercenary")
+    @DisplayName("Test spectre on mercenary and spectre duration and durability")
     public void spectreOnMercenary() {
     };
 
@@ -18,4 +18,5 @@ public class SpectreTest {
     @DisplayName("Test building specture using 2 sun stones")
     public void buildSpectureUsingSunStones() {
     };
+
 }
