@@ -11,7 +11,7 @@ import dungeonmania.entities.collectables.Useable;
 import dungeonmania.entities.collectables.potions.Potion;
 import dungeonmania.entities.enemies.Enemy;
 import dungeonmania.entities.enemies.Mercenary;
-import dungeonmania.entities.inventory.ConsumableInventoryItem;
+import dungeonmania.entities.inventory.UseableBuffItem;
 import dungeonmania.response.models.BattleResponse;
 import dungeonmania.response.models.ResponseBuilder;
 import dungeonmania.util.NameConverter;
@@ -27,14 +27,14 @@ public class BattleFacade {
 
         // 1. apply buff provided by the game and player's inventory
         // getting buffing amount
-        List<ConsumableInventoryItem> battleItems = new ArrayList<>();
+        List<UseableBuffItem> battleItems = new ArrayList<>();
         BattleStatistics playerBuff = new BattleStatistics(0, 0, 0, 1, 1);
 
         Potion effectivePotion = player.getEffectivePotion();
         if (effectivePotion != null) {
             playerBuff = player.applyBuff(playerBuff);
         } else {
-            for (ConsumableInventoryItem item : player.getInventory().getEntities(ConsumableInventoryItem.class)) {
+            for (UseableBuffItem item : player.getInventory().getEntities(UseableBuffItem.class)) {
                 playerBuff = item.applyBuff(playerBuff);
                 battleItems.add(item);
                 ((Useable) item).use(game);
