@@ -1,61 +1,48 @@
 package dungeonmania.entities;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import dungeonmania.entities.collectables.Bomb;
+import dungeonmania.entities.logicals.CurrentObserver;
+import dungeonmania.entities.logicals.CurrentSubject;
 import dungeonmania.map.GameMap;
 import dungeonmania.util.Position;
 
-public class Switch extends Entity implements OverlapBehaviour, MovedAwayBehaviour {
-    private boolean activated;
-    private List<Bomb> bombs = new ArrayList<>();
-
+public class Switch extends CurrentSubject implements OverlapBehaviour, MovedAwayBehaviour, OnDestroyBehaviour {
     public Switch(Position position) {
         super(position.asLayer(Entity.ITEM_LAYER));
     }
 
-    public void subscribe(Bomb b) {
-        bombs.add(b);
-    }
-
-    public void subscribe(Bomb bomb, GameMap map) {
-        bombs.add(bomb);
-        if (activated) {
-            activateBombs(map);
-        }
-    }
-
-    public void unsubscribe(Bomb b) {
-        bombs.remove(b);
-    }
-
-    @Override
-    public boolean canMoveOnto(GameMap map, Entity entity) {
-        return true;
-    }
-
     public void onOverlap(GameMap map, Entity entity) {
         if (entity instanceof Boulder) {
-            activated = true;
-            activateBombs(map);
+            setActivated(true);
+            notifyCardinallyAdjacentExcept(null, true);
         }
-    }
-
-    public void activateBombs(GameMap map) {
-        for (Bomb b : bombs) {
-            b.bombDetonation(map);
-        }
+        updateLogicals(map);
     }
 
     @Override
     public void onMovedAway(GameMap map, Entity entity) {
         if (entity instanceof Boulder) {
-            activated = false;
+            setActivated(false);
+            notifyCardinallyAdjacentExcept(null, false);
         }
+        updateLogicals(map);
     }
 
-    public boolean isActivated() {
-        return activated;
+    @Override
+    public void onDestroy(GameMap gameMap) {
+        setActivated(false);
+        notifyCardinallyAdjacentExcept(null, false);
+        new ArrayList<>(getObservers()).stream().forEach(obs -> detach(obs));
+        updateLogicals(gameMap);
+    }
+
+    private void updateLogicals(GameMap map) {
+        map.getEntities().stream().filter(e -> e instanceof CurrentObserver).map(e -> (CurrentObserver) e)
+                .forEach(l -> l.updateConditionStatus());
+
+        map.getEntities().stream().filter(e -> e instanceof Bomb).map(e -> (Bomb) e).filter(Bomb::willExplode)
+                .forEach(b -> b.bombDetonation(map));
     }
 }
