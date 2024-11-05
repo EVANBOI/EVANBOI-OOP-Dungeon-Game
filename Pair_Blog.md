@@ -354,4 +354,4 @@ Fixed by adding a private inRange function which checks when the player is in ra
 
 Found a mistake with keys where players could pick up more than one. Fixed by implemented a check in onOverlap in Key class where it checks if the number of keys in ivnentory is 0. This error was found by looking through the code and confirmed by reading the relevant test.
 
-The test in DoorsKeysTest was also updated to match the spec
+The test in DoorsKeysTest was also updated to match the spec.
