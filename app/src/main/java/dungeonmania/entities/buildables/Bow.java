@@ -7,9 +7,12 @@ import dungeonmania.entities.collectables.Arrow;
 import dungeonmania.entities.collectables.Useable;
 import dungeonmania.entities.collectables.Wood;
 import dungeonmania.entities.inventory.Inventory;
+import dungeonmania.entities.inventory.InventoryItem;
+import dungeonmania.entities.inventory.UseableBuffItem;
+
 import java.util.List;
 
-public class Bow extends Buildable implements Useable {
+public class Bow extends UseableBuffItem implements Useable, Buildable {
     private int durability;
 
     public Bow(int durability) {
@@ -42,7 +45,7 @@ public class Bow extends Buildable implements Useable {
     }
 
     @Override
-    public Buildable buildItem(Inventory inventory, boolean remove, EntityFactory factory) {
+    public InventoryItem buildItem(Inventory inventory, boolean remove, EntityFactory factory) {
         List<Wood> wood = inventory.getEntities(Wood.class);
         List<Arrow> arrows = inventory.getEntities(Arrow.class);
 

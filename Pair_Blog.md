@@ -107,6 +107,8 @@ Most classes don't require the onMoved method which violates LSP. To fix this, w
 
 Entities has a onDestroy method that is implemented by its subclasses. However, enemies is the only subclass that uses this methods, while the other overriden methods are empty. This violates LSP. To fix this, we implement a onDestroyBehaviour interface that is only implemented by enemies and zombieToastSpawner for now. (It will also be used for logical entities in Task2F). The GameMap class destroyEntity method is also updated so that it checks if the entity is a instance of the interface before calling onDestroy.
 
+[Merge Request 3](/put/links/here)
+
 ## Task 2) Evolution of Requirements 👽
 
 ### a) Microevolution - Enemy Goal
@@ -226,13 +228,12 @@ Looks good!
 
 [Any other notes]
 
-### Choice 2 (Insert choice)
+### Choice 2 (D- Sun Stone & More Buildables)
 
 [Links to your merge requests](/put/links/here)
 
 **Assumptions**
 
-[Any assumptions made]
 
 **Design**
 

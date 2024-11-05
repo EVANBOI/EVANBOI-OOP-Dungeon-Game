@@ -19,6 +19,7 @@
     - Refactored the onMovedAway method
     - Abstracted the buildable logic in the inventory class
     - As per Alex's instructions fixed my refactoring and made the buildable logic static methods
+    - Changed the buildable class into an interface.
 
 ## Week 9
 
