@@ -340,7 +340,9 @@ the item, in which one gets consumed.
 
 [Merge Request 1](/put/links/here)
 
-[Briefly explain what you did]
+Found a mistake in the implementation of Portal, where a Zombie was able to be teleported when it should not
+
+removed ZombieToast from possible entities that can teleport and updated Test 7-4 for portal effect on zombie 
 
 [Merge Request 2](/put/links/here)
 
