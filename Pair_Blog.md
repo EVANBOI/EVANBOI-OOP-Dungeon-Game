@@ -257,12 +257,15 @@ Looks good!
 
 **Assumptions**
 
+<<<<<<< HEAD
 - For creating a sceptre if the player doesn't possess enough treasure/keys, you would require two sun stones to build
 the item, in which one gets consumed.
 - The durability of the spectre is 1
 - Only one sceptre can be used one at a time
 - When the mind control duration is over --> mercenary movements become random
 - Midnight Armor does not count as a weapon
+=======
+>>>>>>> main
 
 **Design**
 
