@@ -341,12 +341,22 @@ the item, in which one gets consumed.
 
 [Merge Request 1](/put/links/here)
 
-Found a mistake in the implementation of Portal, where a Zombie was able to be teleported when it should not
+Found a mistake in the implementation of Portal, where a Zombie was able to be teleported when it should not. I came to this conclusion by reading the code and seeing a incorrect check for ZombieToast.
 
 removed ZombieToast from possible entities that can teleport and updated Test 7-4 for portal effect on zombie 
 
 [Merge Request 2](/put/links/here)
 
-[Briefly explain what you did]
+Found a mistake with mercenary bribing, where they could be bribed without being in the correct radius. This conclusion was came to by looking at the canBeBribed function which did not have any seemingly relevant checks and then also confirmed by looking at the relevant test in MercenaryTest.
 
-Add all other changes you made in the same format here:
+Fixed by adding a private inRange function which checks when the player is in range to the Mercenary class, and then calling it in canBeBribed
+
+[Merge Request 3](/put/links/here)
+
+Found a mistake with keys where players could pick up more than one. Fixed by implemented a check in onOverlap in Key class where it checks if the number of keys in ivnentory is 0. This error was found by looking through the code and confirmed by reading the relevant test.
+
+The test in DoorsKeysTest was also updated to match the spec.
+
+[Merge Request 4](/put/links/here)
+
+A mistake was found during the implementation of Enemy Goals where a ZombieToastSpawner was not properly destroyed after being interacted with. This was fixed during the implementation of Enemy Goals by adding a call to a method to destroy the spawner when it is interacted with. The relevant test in ZombieTest was also updated.
