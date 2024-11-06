@@ -48,6 +48,9 @@ public class MidnightArmourTest {
         // Build midnight armour
         response = assertDoesNotThrow(() -> dmc.build("midnight_armour"));
         assertEquals(1, TestUtils.getInventory(response, "midnight_armour").size());
+        // Materials have been consumed
+        assertEquals(0, TestUtils.getInventory(response, "sword").size());
+        assertEquals(0, TestUtils.getInventory(response, "sun_stone").size());
 
     };
 

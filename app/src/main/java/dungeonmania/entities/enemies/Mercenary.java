@@ -123,6 +123,7 @@ public class Mercenary extends Enemy implements Interactable, PotionListener {
             mindControlDuration--;
             if (mindControlDuration == 0) {
                 allied = false;
+                setMovement(new ToPlayerMovement());
             }
         }
     }
@@ -168,6 +169,7 @@ public class Mercenary extends Enemy implements Interactable, PotionListener {
         Sceptre sceptre = player.getSceptre();
         mindControlDuration = sceptre.getDuration();
         allied = true;
+        setMovement(new ToPlayerMovement());
     }
 
 }

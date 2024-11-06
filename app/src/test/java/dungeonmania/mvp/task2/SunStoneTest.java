@@ -1,4 +1,4 @@
-// package dungeonmania.mvp.task2;
+package dungeonmania.mvp.task2;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;

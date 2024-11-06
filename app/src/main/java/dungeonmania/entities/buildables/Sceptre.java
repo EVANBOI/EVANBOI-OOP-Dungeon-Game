@@ -23,10 +23,6 @@ public class Sceptre extends InventoryItem implements Buildable {
         return duration;
     }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
     public static String stringValue() {
         return "sceptre";
     }
