@@ -12,7 +12,6 @@ import dungeonmania.entities.collectables.potions.Potion;
 import dungeonmania.entities.enemies.Enemy;
 import dungeonmania.entities.enemies.Mercenary;
 import dungeonmania.entities.inventory.BattleItem;
-import dungeonmania.entities.inventory.UseableBuffItem;
 import dungeonmania.response.models.BattleResponse;
 import dungeonmania.response.models.ResponseBuilder;
 import dungeonmania.util.NameConverter;
@@ -38,7 +37,7 @@ public class BattleFacade {
             for (BattleItem item : player.getInventory().getEntities(BattleItem.class)) {
                 playerBuff = item.applyBuff(playerBuff);
                 battleItems.add(item);
-                if (item instanceof UseableBuffItem) {
+                if (item instanceof Useable) {
                     ((Useable) item).use(game);
                 }
             }
