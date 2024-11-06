@@ -8,7 +8,9 @@ import java.util.HashSet;
 
 import dungeonmania.battles.BattleStatistics;
 import dungeonmania.battles.Battleable;
+import dungeonmania.entities.buildables.Sceptre;
 import dungeonmania.entities.collectables.Bomb;
+import dungeonmania.entities.collectables.SunStone;
 import dungeonmania.entities.collectables.Treasure;
 import dungeonmania.entities.collectables.Useable;
 import dungeonmania.entities.collectables.potions.InvincibilityPotion;
@@ -66,8 +68,8 @@ public class Player extends Entity implements Battleable, OverlapBehaviour {
         return inventory.getWeapon();
     }
 
-    public List<String> getBuildables() {
-        return inventory.getBuildables();
+    public List<String> getBuildables(GameMap map) {
+        return inventory.getBuildables(map);
     }
 
     public boolean build(String entity, EntityFactory factory) {
@@ -102,7 +104,7 @@ public class Player extends Entity implements Battleable, OverlapBehaviour {
     }
 
     public boolean pickUp(Entity item) {
-        if (item instanceof Treasure)
+        if (item instanceof Treasure || item instanceof SunStone)
             collectedTreasureCount++;
         return inventory.add((InventoryItem) item);
     }
@@ -187,5 +189,9 @@ public class Player extends Entity implements Battleable, OverlapBehaviour {
 
     public void removePotionListener(PotionListener e) {
         potionListeners.remove(e);
+    }
+
+    public Sceptre getSceptre() {
+        return inventory.getSceptre();
     }
 }

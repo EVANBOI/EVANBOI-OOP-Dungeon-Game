@@ -3,6 +3,8 @@ package dungeonmania.entities;
 import dungeonmania.Game;
 import dungeonmania.entities.buildables.Bow;
 import dungeonmania.entities.buildables.Buildable;
+import dungeonmania.entities.buildables.MidnightArmour;
+import dungeonmania.entities.buildables.Sceptre;
 import dungeonmania.entities.buildables.Shield;
 import dungeonmania.entities.collectables.*;
 import dungeonmania.entities.enemies.*;
@@ -128,6 +130,18 @@ public class EntityFactory {
         return new Shield(shieldDurability, shieldDefence);
     }
 
+    public MidnightArmour buildMidnightArmour() {
+        double midnightArmourAttack = config.optInt("midnight_armour_attack");
+        double midnightArmourDefence = config.optInt("midnight_armour_defence");
+        return new MidnightArmour(midnightArmourAttack, midnightArmourDefence);
+
+    }
+
+    public Sceptre buildSceptre() {
+        int sceptreDuration = config.optInt("mind_control_duration");
+        return new Sceptre(sceptreDuration);
+    }
+
     private Entity constructEntity(JSONObject jsonEntity, JSONObject config) {
         Position pos = new Position(jsonEntity.getInt("x"), jsonEntity.getInt("y"));
         String logic;
@@ -151,6 +165,8 @@ public class EntityFactory {
             return new Exit(pos);
         case "treasure":
             return new Treasure(pos);
+        case "sun_stone":
+            return new SunStone(pos);
         case "wood":
             return new Wood(pos);
         case "arrow":
@@ -198,21 +214,16 @@ public class EntityFactory {
             return buildBow();
         } else if (item.equals("shield")) {
             return buildShield();
+        } else if (item.equals("midnight_armour")) {
+            return buildMidnightArmour();
+        } else if (item.equals("sceptre")) {
+            return buildSceptre();
         }
 
         return null;
     }
 
-    public static boolean canBuild(String itemName, Inventory inventory) {
-        if (itemName.equals("bow")) {
-            return Bow.isBuildable(inventory);
-        } else if (itemName.equals("shield")) {
-            return Shield.isBuildable(inventory);
-        }
-        return false;
-    }
-
-    public static List<String> getBuildableItems(Inventory inventory) {
+    public static List<String> getBuildableItems(Inventory inventory, GameMap map) {
         List<String> result = new ArrayList<>();
 
         if (Bow.isBuildable(inventory)) {
@@ -221,15 +232,19 @@ public class EntityFactory {
         if (Shield.isBuildable(inventory)) {
             result.add(Shield.stringValue());
         }
+        if (MidnightArmour.isBuildable(inventory, map)) {
+            result.add(MidnightArmour.stringValue());
+        }
+        if (Sceptre.isBuildable(inventory)) {
+            result.add(Sceptre.stringValue());
+        }
 
         return result;
     }
 
     public InventoryItem buildItem(String itemName, Inventory inventory, boolean remove) {
-        if (canBuild(itemName, inventory)) {
-            Buildable buildable = this.constructBuildables(itemName);
-            return buildable.buildItem(inventory, remove, this);
-        }
-        return null;
+
+        Buildable buildable = this.constructBuildables(itemName);
+        return buildable.buildItem(inventory, remove, this);
     }
 }

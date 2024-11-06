@@ -33,6 +33,9 @@ public class GraphNodeFactory {
         case "light_bulb_off":
         case "switch_door":
         case "wire":
+        case "sun_stone":
+        case "midnight_armour":
+        case "sceptre":
             return new GraphNode(factory.createEntity(jsonEntity));
         default:
             throw new IllegalArgumentException(
