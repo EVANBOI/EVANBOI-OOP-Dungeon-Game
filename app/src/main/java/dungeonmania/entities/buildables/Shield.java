@@ -3,6 +3,7 @@ package dungeonmania.entities.buildables;
 import dungeonmania.battles.BattleStatistics;
 import dungeonmania.entities.EntityFactory;
 import dungeonmania.entities.collectables.Key;
+import dungeonmania.entities.collectables.SunStone;
 import dungeonmania.entities.collectables.Treasure;
 import dungeonmania.entities.collectables.Wood;
 import dungeonmania.entities.inventory.Inventory;
@@ -28,7 +29,8 @@ public class Shield extends UseableBuffItem implements Buildable {
         int numOfWood = inventory.count(Wood.class);
         int numOfTreasure = inventory.count(Treasure.class);
         int numOfKeys = inventory.count(Key.class);
-        return numOfWood >= 2 && (numOfTreasure >= 1 || numOfKeys >= 1);
+        int numOfSunStones = inventory.count(SunStone.class);
+        return (numOfWood >= 2 && (numOfTreasure >= 1 || numOfKeys >= 1 || numOfSunStones >= 1));
     }
 
     public InventoryItem buildItem(Inventory inventory, boolean remove, EntityFactory factory) {
@@ -36,19 +38,16 @@ public class Shield extends UseableBuffItem implements Buildable {
         List<Treasure> treasure = inventory.getEntities(Treasure.class);
         List<Key> keys = inventory.getEntities(Key.class);
 
-        if (isBuildable(inventory)) {
-            if (remove) {
-                inventory.remove(wood.get(0));
-                inventory.remove(wood.get(1));
-                if (treasure.size() >= 1) {
-                    inventory.remove(treasure.get(0));
-                } else {
-                    inventory.remove(keys.get(0));
-                }
+        if (remove) {
+            inventory.remove(wood.get(0));
+            inventory.remove(wood.get(1));
+            if (treasure.size() >= 1) {
+                inventory.remove(treasure.get(0));
+            } else if (keys.size() >= 1) {
+                inventory.remove(keys.get(0));
             }
-            return factory.buildShield();
         }
-        return null;
+        return factory.buildShield();
     }
 
     public static String stringValue() {

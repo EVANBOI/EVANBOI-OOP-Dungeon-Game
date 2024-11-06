@@ -263,6 +263,7 @@ the item, in which one gets consumed.
 - Only one sceptre can be used one at a time
 - When the mind control duration is over --> mercenary movements becomes toPlayerMovement
 - Midnight Armor does not count as a weapon
+- When trying to open a door with both a key and a sunstone in the player's inventory, the 
 
 **Design**
 

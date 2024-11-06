@@ -8,8 +8,10 @@ import dungeonmania.entities.Entity;
 import dungeonmania.entities.EntityFactory;
 import dungeonmania.entities.Player;
 import dungeonmania.entities.buildables.Bow;
+import dungeonmania.entities.buildables.Sceptre;
 import dungeonmania.entities.collectables.Sword;
 import dungeonmania.entities.collectables.Useable;
+import dungeonmania.map.GameMap;
 
 public class Inventory {
     private List<InventoryItem> items = new ArrayList<>();
@@ -23,8 +25,8 @@ public class Inventory {
         items.remove(item);
     }
 
-    public List<String> getBuildables() {
-        return EntityFactory.getBuildableItems(this);
+    public List<String> getBuildables(GameMap map) {
+        return EntityFactory.getBuildableItems(this, map);
     }
 
     public InventoryItem checkBuildCriteria(Player p, boolean remove, String item, EntityFactory factory) {
@@ -63,6 +65,10 @@ public class Inventory {
 
     public boolean hasWeapon() {
         return getFirst(Sword.class) != null || getFirst(Bow.class) != null;
+    }
+
+    public Sceptre getSceptre() {
+        return getFirst(Sceptre.class);
     }
 
     public Useable getWeapon() {

@@ -87,7 +87,7 @@ public class Game {
     }
 
     public Game build(String buildable) throws InvalidActionException {
-        List<String> buildables = player.getBuildables();
+        List<String> buildables = player.getBuildables(map);
         if (!buildables.contains(buildable)) {
             throw new InvalidActionException(String.format("%s cannot be built", buildable));
         }
