@@ -47,7 +47,9 @@ I refactored the code by improving the usage of the pattern. I removed all of th
 
 ### c) Inheritance Design
 
-[Links to your merge requests](/put/links/here)
+[Links to your merge requests](
+    https://nw-syd-gitlab.cseunsw.tech/COMP2511/24T3/teams/H11A_ALBATROSS/assignment-ii/-/commit/d9a16a3c8494df2cad41e0f940674f4b03ae959b
+    )
 
 > i. List one design principle that is violated by collectable objects based on the description above. Briefly justify your answer.
 
@@ -69,7 +71,9 @@ I realised that the abstract method onOverlap violates LSP, as it doesn't make s
 
 ### d) More Code Smells
 
-[Links to your merge requests](/put/links/here)
+[Links to your merge requests](
+    https://nw-syd-gitlab.cseunsw.tech/COMP2511/24T3/teams/H11A_ALBATROSS/assignment-ii/-/commit/fdf24e6319f6b7ce5450eeeb23292d76aaff22cc
+    )
 
 > i. What code smell is present in the above snippet?
 
@@ -107,7 +111,9 @@ Most classes don't require the onMoved method which violates LSP. To fix this, w
 
 Entities has a onDestroy method that is implemented by its subclasses. However, enemies is the only subclass that uses this methods, while the other overriden methods are empty. This violates LSP. To fix this, we implement a onDestroyBehaviour interface that is only implemented by enemies and zombieToastSpawner for now. (It will also be used for logical entities in Task2F). The GameMap class destroyEntity method is also updated so that it checks if the entity is a instance of the interface before calling onDestroy.
 
-[Merge Request 3](/put/links/here)
+[Merge Request 3](
+    https://nw-syd-gitlab.cseunsw.tech/COMP2511/24T3/teams/H11A_ALBATROSS/assignment-ii/-/commit/bca484bfa3fe46540bb348c6f36db2a8f681ff37
+    )
 
 Changed the buildables class into an interface, as it is possible to have a buildable item that lasts forever and doesn't have a durability. It is also possible to have a buildable item that doesn't apply a buff. In addition to this, the buildables class didn't have sort of concrete methods so it might as well been an interface.
 
@@ -253,7 +259,13 @@ Looks good!
 
 ### Choice 2 (D- Sun Stone & More Buildables)
 
-[Links to your merge requests](/put/links/here)
+[Links to your merge requests](
+    https://nw-syd-gitlab.cseunsw.tech/COMP2511/24T3/teams/H11A_ALBATROSS/assignment-ii/-/commit/2ec54e790a4d3eb13ff644e54e8743e249b998a4
+
+    https://nw-syd-gitlab.cseunsw.tech/COMP2511/24T3/teams/H11A_ALBATROSS/assignment-ii/-/commit/54e826b82fa0f4ffb092825fd610f8b6cdef0d4d
+
+    https://nw-syd-gitlab.cseunsw.tech/COMP2511/24T3/teams/H11A_ALBATROSS/assignment-ii/-/commit/c7e04664947360061a6a3baaaa39a5f62a3fa38f
+)
 
 **Assumptions**
 
