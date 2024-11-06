@@ -25,3 +25,5 @@
 
 - List the tasks you completed this week here
 - Worked on Task 2D
+- Finished writing the test list 
+- Finished implementation of 2D

@@ -31,16 +31,13 @@ public class Bow extends UseableBuffItem implements Buildable {
         List<Wood> wood = inventory.getEntities(Wood.class);
         List<Arrow> arrows = inventory.getEntities(Arrow.class);
 
-        if (isBuildable(inventory)) {
-            if (remove) {
-                inventory.remove(wood.get(0));
-                inventory.remove(arrows.get(0));
-                inventory.remove(arrows.get(1));
-                inventory.remove(arrows.get(2));
-            }
-            return factory.buildBow();
+        if (remove) {
+            inventory.remove(wood.get(0));
+            inventory.remove(arrows.get(0));
+            inventory.remove(arrows.get(1));
+            inventory.remove(arrows.get(2));
         }
-        return null;
+        return factory.buildBow();
     }
 
     public static String stringValue() {

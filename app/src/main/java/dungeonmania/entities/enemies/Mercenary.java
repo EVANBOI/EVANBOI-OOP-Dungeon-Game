@@ -6,6 +6,7 @@ import dungeonmania.entities.Entity;
 import dungeonmania.entities.Interactable;
 import dungeonmania.entities.Player;
 import dungeonmania.entities.PotionListener;
+import dungeonmania.entities.buildables.Sceptre;
 import dungeonmania.entities.collectables.Treasure;
 import dungeonmania.entities.collectables.potions.InvincibilityPotion;
 import dungeonmania.entities.collectables.potions.InvisibilityPotion;
@@ -29,6 +30,7 @@ public class Mercenary extends Enemy implements Interactable, PotionListener {
     private double allyDefence;
     private boolean allied = false;
     private boolean isAdjacentToPlayer = false;
+    private int mindControlDuration = 0;
 
     public Mercenary(Position position, double health, double attack, int bribeAmount, int bribeRadius,
             double allyAttack, double allyDefence) {
@@ -41,6 +43,9 @@ public class Mercenary extends Enemy implements Interactable, PotionListener {
     }
 
     public boolean isAllied() {
+        if (mindControlDuration > 0) {
+            return true;
+        }
         return allied;
     }
 
@@ -88,11 +93,16 @@ public class Mercenary extends Enemy implements Interactable, PotionListener {
 
     @Override
     public void interact(Player player, Game game) {
-        allied = true;
-        setMovement(new ToPlayerMovement());
-        bribe(player);
-        if (!isAdjacentToPlayer && Position.isAdjacent(player.getPosition(), getPosition()))
-            isAdjacentToPlayer = true;
+
+        if (player.getSceptre() != null) {
+            sceptreListener(game);
+        } else {
+            allied = true;
+            setMovement(new ToPlayerMovement());
+            bribe(player);
+            if (!isAdjacentToPlayer && Position.isAdjacent(player.getPosition(), getPosition()))
+                isAdjacentToPlayer = true;
+        }
     }
 
     @Override
@@ -108,16 +118,29 @@ public class Mercenary extends Enemy implements Interactable, PotionListener {
         }
 
         map.moveTo(this, nextPos);
+
+        if (mindControlDuration > 0) {
+            mindControlDuration--;
+            if (mindControlDuration == 0) {
+                allied = false;
+                setMovement(new ToPlayerMovement());
+            }
+        }
     }
 
     @Override
     public boolean isInteractable(Player player) {
-        return !allied && canBeBribed(player);
+        if (!allied && canBeBribed(player)) {
+            return true;
+        } else if (player.getSceptre() != null) {
+            return true;
+        }
+        return false;
     }
 
     @Override
     public BattleStatistics getBattleStatistics() {
-        if (!allied)
+        if (!allied && mindControlDuration == 0)
             return super.getBattleStatistics();
         return new BattleStatistics(0, allyAttack, allyDefence, 1, 1);
     }
@@ -140,4 +163,13 @@ public class Mercenary extends Enemy implements Interactable, PotionListener {
 
         setMovement(new ToPlayerMovement());
     }
+
+    public void sceptreListener(Game game) {
+        Player player = game.getPlayer();
+        Sceptre sceptre = player.getSceptre();
+        mindControlDuration = sceptre.getDuration();
+        allied = true;
+        setMovement(new ToPlayerMovement());
+    }
+
 }

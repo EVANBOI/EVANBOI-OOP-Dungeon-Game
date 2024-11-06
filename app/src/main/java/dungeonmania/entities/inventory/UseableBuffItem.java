@@ -5,7 +5,7 @@ import dungeonmania.battles.BattleStatistics;
 import dungeonmania.entities.collectables.Useable;
 import dungeonmania.util.Position;
 
-public abstract class UseableBuffItem extends InventoryItem implements Useable, ApplyBuffBehaviour {
+public abstract class UseableBuffItem extends InventoryItem implements Useable, BattleItem {
     private int durability;
 
     public UseableBuffItem(Position position, int durability) {
